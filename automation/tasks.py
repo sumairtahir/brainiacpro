@@ -164,6 +164,7 @@ import time
 def call_operation(operation, iteration, call_next_operation_bool, total_iterations, last_operation):
     
     update_status(operation.id, 2)
+    time.sleep(5)
     previous_output_dict = {}
     if operation.prev_operation:
         previous_outputs = get_prev_operation_outputs_keys(operation)
@@ -234,7 +235,6 @@ def call_operation(operation, iteration, call_next_operation_bool, total_iterati
 
 @shared_task
 def start_automation(automation_id):
-    print("=======HERE======")
     # Perform the background operation
     # ...
     operation = Operation.objects.filter(automation_id=automation_id, prev_operation=None).first()

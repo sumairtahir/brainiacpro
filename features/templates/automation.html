@@ -15,15 +15,25 @@
   .in-progress {
     background-image: linear-gradient(to left, #212529, #212529), conic-gradient(from var(--border-angle), transparent 20%, #08f, #f03);
   }
-  .complete {
-    border: 2px solid transparent;
-    box-shadow: 0 0 0 4px #00d479;
+
+  .border-gradient-purple {
+    border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
   }
+  
+  .border-gradient-green {
+    border-image-source: linear-gradient(to left, #00C853, #B2FF59);
+  }
+
+  .completed {
+    border-image-source: linear-gradient(to left, #00C853, #B2FF59);
+  }
+  
   @-webkit-keyframes bg-spin {
     to {
       --border-angle: 1turn;
     }
   }
+  
   @keyframes bg-spin {
     to {
       --border-angle: 1turn;
@@ -95,6 +105,16 @@
     border-right: 1px solid #a4a4a4
   }
 
+  .operation-border {
+    border: 10px solid;
+    border-color: transparent;
+    border-image-slice: 1;
+    border-width: 5px;
+  }
+
+  .operation.active {
+    border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
+  }
 
 </style>
 {% endblock %}
@@ -127,7 +147,7 @@
                     {% for operation in operations %}
                     <div class="col-md-12">
                       <label>{{ operation.operation_title }}</label>
-                      <div class="bg-dark box operation" data-operation-id="{{ operation.id }}">
+                      <div class="bg-dark box operation operation-border" data-operation-id="{{ operation.id }}">
                         <div class="card-body">
                           <a href="javascript:void(0)" id="operation" operation-type="{{ operation.operation_type }}" operation-id="{{ operation.id }}">
                             <div class="row">
@@ -136,19 +156,17 @@
                                         <img src="{{ operation.icon.url }}" width="50px">
                                     </div>
                                 </div>
-                                <div class="col-5 align-items-center d-flex" style="padding-left:0px;">
+                                <div class="col-6 align-items-center d-flex" style="padding-left:0px;">
                                     <div class="timeline-body">
                                       <p class="feature-title text-light">{{ operation.title }}</p>
                                       <span class="output-time">{{ operation.text_field_1 }}</span>
                                     </div>
                                     <br>
                                 </div>
-                                <div class="col-1">
-                                </div>
                                 <div class="col-4 align-items-center d-done operation-iterations" data-operation-id="{{ operation.id }}" style="padding-left:0px; float:right;" hidden>
                                   <span class="small-option iteration" data-operation-id="{{ operation.id }}" style="margin-right:5px"><span style="font-size: 14px; color: #5e5e5e;" >1000</span></span>
-                                  <span class="text-light" style="margin-right:5px">out of </span>
-                                  <span class="small-option total-iteration data-operation-id="{{ operation.id }}"" style="margin-right:5px"><span style="font-size: 14px; color: #5e5e5e;" >1000</span></span>
+                                  <span class="text-light" style="margin-right:5px">/</span>
+                                  <span class="small-option total-iterations" data-operation-id="{{ operation.id }}" style="margin-right:5px"><span style="font-size: 14px; color: #5e5e5e;" >1000</span></span>
                                   <span class="text-light" style="margin-right:5px">operations</span>
                                 </div>
                             </div>
@@ -251,10 +269,12 @@
       {% endif %}
     {% endfor %}
 
-    $(document).on('click', '#operation', function (){
+    $(document).on('click', '.operation', function (){
       var btn = this
-      var id = $(this).attr('operation-id');
-      $("#save-operation-settings").parent().attr("hidden", false);;
+      var id = $(this).attr('data-operation-id');
+      $('.operation.active').removeClass('active');
+      $(this).addClass('active');
+      $("#save-operation-settings").parent().attr("hidden", false);
       $.ajax({
         url: '/automation/get-operation-settings/' + id,
         method: 'POST',
@@ -306,8 +326,6 @@
           }
           $(`.expected_output_option[value='${data.operations.expected_output}']`).attr("selected", true);
           $('#operation_settings_form').attr("operation-id", id);
-
-          
         }
     })
   });
