@@ -1,0 +1,281 @@
+{% extends 'app_base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .border-dashed{
+        border: 1px dashed #E1E3EA !important;
+    }
+    .badge{
+        border-radius: 5px;
+    }
+</style>
+<div class="content">
+  {% include 'alerts.html' %}
+    <br>
+    <div class="row justify-content-center">
+      
+      <div class="card col-lg-8 col-md-12 col-sm-12 col-12" style="width: 100%; border:1px solid #E1E3EA">
+            <div style=" max-height: 100%; padding-top: 15px;">
+                <div class="row" class="tabs">
+                    <a href="{% url 'user_profile' %}" class="badge badge-pill badge-info {% if page == "profile" %}tabs_active{% endif %}">Profile</a>
+                    <a href="{% url 'change_password' %}" class="badge badge-pill badge-info {% if page == "change_password" %}tabs_active{% endif %}">Change Password</a>
+                    <a href="{% url 'billing' %}" class="badge badge-pill badge-info {% if page == "billing" %}tabs_active{% endif %}">Billing</a>
+                    <!--button class="badge badge-pill badge-info {% if page == "usage" %}tabs_active{% endif %}">Usage</!--button-->
+                </div>
+            <div class="card-header"><h4>Account Overview</h4></div>
+            <div class="card" style="border:1px solid #E1E3EA;">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-3">
+                    <div class="me-7">
+                      <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
+                          <img src="{% if request.user.profile_picture %}{{ request.user.profile_picture.url }}{% else %}/static/assets/img/placeholder.jpeg{% endif %}" alt="image">
+                          <div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-8">
+                    <div class="row" style="margin-bottom: 2rem;">
+                      <div class="col-4">
+                        <div class="me-7">
+                          <p href="#" style="font-size:17px; font-weight: 600; margin-top:10px">{{ request.user.username }}</p>
+                        </div>
+                      </div>
+                      <div class="col-md-8 ml-auto">
+                        <div class="progress-container progress-primary">
+                          <div class="d-flex justify-content-between w-100 mt-auto mb-2">
+                            <span class="fw-semibold fs-6 text-gray-400">USAGE</span>
+                            <span class="fw-bold fs-6">{{ usage }}/{{ words_count }} words</span>
+                          </div>
+                          <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 75%;">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-4">
+                        <div class="me-7">
+                          <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                            <!--begin::Number-->
+                            <div class="d-flex align-items-center">
+                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
+                               <div class="fs-2 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500" data-kt-countup-prefix="$" data-kt-initialized="1"><i class="tim-icons icon-components"></i> {{ total_fav_features }}</div>
+                            </div>
+                            <!--end::Number-->
+
+                            <!--begin::Label-->
+                            <div class="fw-semibold fs-6 text-gray-400">Fav Features</div>
+                            <!--end::Label-->
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="me-7">
+                          <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                            <!--begin::Number-->
+                            <div class="d-flex align-items-center">
+                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
+                                <span class="svg-icon svg-icon-3 svg-icon-success me-2"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1" transform="rotate(90 13 6)" fill="currentColor"></rect>
+                                <path d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z" fill="currentColor"></path>
+                                </svg>
+                                </span>
+                               <div class="fs-2 fw-bold counted" data-kt-countup="true" data-kt-countup-value="4500" data-kt-countup-prefix="$" data-kt-initialized="1">{{ total_words_generated }}</div>
+                            </div>
+                            <!--end::Number-->
+
+                            <!--begin::Label-->
+                            <div class="fw-semibold fs-6 text-gray-400">Total Words</div>
+                            <!--end::Label-->
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="me-7">
+                          <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                            <!--begin::Number-->
+                            <div class="d-flex align-items-center">
+                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
+                                <span class="svg-icon svg-icon-3 svg-icon-success me-2">
+                                  <i class="tim-icons icon-spaceship"></i>
+                                </span>
+                               <div class="fs-2 fw-bold counted" style="margin-left:4px" title="you can generate 340 replies"> {{ request.user.tokens }}</div>
+                            </div>
+                            <!--end::Number-->
+
+                            <!--begin::Label-->
+                            <div class="fw-semibold fs-6 text-gray-400">Words Left</div>
+                            <!--end::Label-->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <form action="{% url 'user_profile' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="card-header">
+                <h5 class="title">Edit Profile</h5>
+                </div>
+                <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4 class="card-title">Avatar</h4></div>
+                    <div class="col-md-6">
+                        <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                            <div class="thumbnail img-circle photo">
+                            <img id="profile-pic-bg" src="{% if request.user.profile_picture %}{{ request.user.profile_picture.url }}{% else %}/static/assets/img/placeholder.jpeg{% endif %}" alt="..." width="100px" height="100px">
+                            </div>
+                            <div class="fileinput-preview fileinput-exists thumbnail img-circle"></div>
+                            <div>
+                            <span class="btn btn-languster btn-file">
+                            <span class="fileinput-new">Change Photo</span>
+                            <input type="file" name="profile_pic" onChange="preview_image(event)" id="profile_pic">
+                            </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <style>
+                  .form-control {
+                    display: block;
+                    width: 100%;
+                    padding: 0.775rem 1rem;
+                    font-size: 1.1rem;
+                    font-weight: 500;
+                    line-height: 1.5;
+                    color: var(--bs-gray-700);
+                    background-color: var(--bs-body-bg);
+                    background-clip: padding-box;
+                    border: 1px solid #E1E3EA;
+                    appearance: none;
+                    border-radius: 0.475rem;
+                    box-shadow: false;
+                    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+                    min-height: 45px;
+                }
+                  .form-control.form-control-solid {
+                    background-color: #F9F9F9;
+                    border: 1px solid #d7d7d7;
+                    color: var(--bs-gray-700);
+                    transition: color 0.2s ease;
+                }
+
+                
+                </style>
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex"><label>Email</label></div>
+                    <div class="col-md-8 pr-md-1">
+                        <div class="form-group">
+                          <input type="email" name="email" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ request.user.email }}" placeholder="email" disabled>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex"><label>Full Name</label></div>
+                    <div class="col-md-4 pr-md-1">
+                    <div class="form-group">
+                    <input type="text" name="first_name" class="form-control form-control-solid mb-3 mb-lg-0"  placeholder="First name" value="{{ request.user.first_name }}">
+                    </div>
+                    </div>
+                    <div class="col-md-4 pl-md-1">
+                    <div class="form-group">
+                    <input type="text" name="last_name" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ request.user.last_name }}" placeholder="last_name">
+                    </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex"><label>Company (disabled)</label></div>
+                    <div class="col-md-8 pr-md-1">
+                        <div class="form-group">
+                            <input type="text" name="company" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ request.user.company }}", placeholder="company">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex"><label>Address Line 1</label></div>
+                    <div class="col-md-8 pr-md-1">
+                        <div class="form-group">
+                            <input type="text" name="address_line_1" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ request.user.address_line_1 }}", placeholder="line 1">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-md-4 align-items-center d-flex"><label>Address Line 2</label></div>
+                  <div class="col-md-8 pr-md-1">
+                      <div class="form-group">
+                          <input type="text" name="address_line_2" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ request.user.address_line_2 }}", placeholder="line 2">
+                      </div>
+                  </div>
+              </div>
+              <br>
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex"><label>Contact Phone No.</label></div>
+                    <div class="col-md-8 pr-md-1">
+                        <div class="form-group">
+                            <input type="text" name="phone_number" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ request.user.phone_number }}", placeholder="contact phone number">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex"><label>City</label></div>
+                    <div class="col-md-8 pr-md-1">
+                        <div class="form-group">
+                            <input type="text" name="city" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ request.user.city }}", placeholder="city">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex"><label>State</label></div>
+                    <div class="col-md-8 pr-md-1">
+                        <div class="form-group">
+                            <input type="text" name="state" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ request.user.state }}", placeholder="state">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-4 align-items-center d-flex"><label>Country</label></div>
+                    <div class="col-md-8 pr-md-1">
+                        <div class="form-group">
+                            <input type="text" name="country" class="form-control form-control-solid mb-3 mb-lg-0" value="{{ request.user.country }}", placeholder="country">
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="card-footer">
+                <button type="submit" name="edit_profile" class="btn btn-fill btn-languster">Save</button>
+                </div>
+      </div>
+{% endblock %}
+
+{% block script %}
+<script>
+  function preview_image(event){
+    var reader = new FileReader();
+    reader.onload = function(){
+        $('#profile-pic-bg').attr('src', reader.result)
+    }
+    reader.readAsDataURL(event.target.files[0]);
+}
+{%if words_count %}
+    MainSizeMbWidth = {{ usage }}/{{ words_count }}
+    MainSizeMbWidth = MainSizeMbWidth*100
+{% else %}
+    MainSizeMbWidth = 0
+{% endif %}
+$('.progress-bar').css('width',MainSizeMbWidth+'%');
+</script>
+{% endblock %}

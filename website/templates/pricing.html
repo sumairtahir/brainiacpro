@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+   
+    <div id="Hero" class="section blog-hero wf-section gradient__bg" style="padding-top:200px;">
+        <div class="container hero">
+            <div class="header-container _800px-max">
+                <div class="header-container">
+                    <h1>Ready to get started?<br></h1>
+                    <div class="gradient subheadline">Pick the best plan for your Languster.</div>
+                </div>
+                <div class="w-layout-grid pricing-grid">
+                    <div><img
+                            src="https://assets-global.website-files.com/60e5f2de011b86acebc30db7/60e5f2de011b86b1e0c30fd5_Subtract.svg"
+                            loading="lazy" alt="" class="_8px-right-margin">
+                        <div class="small-text pricing-text">End writer's block forever</div>
+                    </div>
+                    <div><img
+                            src="https://assets-global.website-files.com/60e5f2de011b86acebc30db7/60e5f2de011b86777fc30fd4_Vector.svg"
+                            loading="lazy" alt="" class="_8px-right-margin">
+                        <div class="small-text pricing-text">5x faster</div>
+                    </div>
+                    <div><img
+                            src="https://assets-global.website-files.com/60e5f2de011b86acebc30db7/60e5f2de011b86498bc30fd6_Union.svg"
+                            loading="lazy" alt="" class="_8px-right-margin">
+                        <div class="small-text pricing-text">Boost sales with better copy</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <style>
+        .pricing > .col-md-6, .col-lg-3{
+            padding: 0px;
+        }
+        .card-title{
+            font-size: 3.8em !important;
+        }
+        .list-group-item{
+            font-size: 0.9em !important;
+        }
+        .text-on-front{
+            font-size: 2.8em !important;
+        }
+        .text-on-back{
+            font-size: 6.5em !important;
+        }
+    </style>
+    <div class="container pricing">
+        <div class="row">
+            <div class="col-md-6 col-lg-3">
+                <div class="card-pricing card-primary card">
+                    <div class="card-body">
+                        <h2 class="card-title">pro</h2><img alt="..." src="https://demos.creative-tim.com/black-dashboard-pro-react/static/media/card-primary.17212428.png" class="card-img">
+                        <ul class="list-group">
+                            <li class="list-group-item">300000 words</li>
+                            <li class="list-group-item">Dedicated Account Manager</li>
+                            <li class="list-group-item">24/7 Support</li>
+                        </ul>
+                        <div class="card-prices">
+                            <h3 class="text-on-front"><span>$</span>95</h3>
+                            <h5 class="text-on-back">95</h5>
+                            <p class="plan">Professional plan</p>
+                        </div>
+                    </div>
+                    <div class="text-center mb-3 mt-3 card-footer"><button
+                            class="btn-round btn-just-icon btn btn-primary">Get started</button></div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card-pricing card-success card-white card">
+                    <div class="card-body">
+                        <h1 class="card-title">basic</h1><img alt="..."
+                            src="https://demos.creative-tim.com/black-dashboard-pro-react/static/media/card-success.b6634da7.png" class="card-img">
+                        <ul class="list-group">
+                            <li class="list-group-item">35,000 words</li>
+                            <li class="list-group-item">Up to 5 users</li>
+                            <li class="list-group-item">chat Support</li>
+                        </ul>
+                        <div class="card-prices">
+                            <h3 class="text-on-front"><span>$</span>57</h3>
+                            <h5 class="text-on-back">57</h5>
+                            <p class="plan">Basic plan</p>
+                        </div>
+                    </div>
+                    <div class="text-center mb-3 mt-3 card-footer"><button
+                            class="btn-round btn-just-icon btn btn-success">Get started</button></div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card-pricing card-warning card-raised card-white card">
+                    <div class="card-body">
+                        <h1 class="card-title">mid</h1><img alt="..."
+                            src="https://demos.creative-tim.com/black-dashboard-pro-react/static/media/card-warning.da888537.png" class="card-img">
+                        <ul class="list-group">
+                            <li class="list-group-item">100,000 words</li>
+                            <li class="list-group-item">Increased limits on templates</li>
+                            <li class="list-group-item">24/7 Support</li>
+                        </ul>
+                        <div class="card-prices">
+                            <h3 class="text-on-front"><span>$</span>72</h3>
+                            <h5 class="text-on-back">72</h5>
+                            <p class="plan">Medium plan</p>
+                        </div>
+                    </div>
+                    <div class="text-center mb-3 mt-3 card-footer"><button
+                            class="btn-round btn-just-icon btn btn-warning">Get started</button></div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="card-pricing card-danger card-white card">
+                    <div class="card-body">
+                        <h1 class="card-title">trial</h1><img alt="..."
+                            src="https://demos.creative-tim.com/black-dashboard-pro-react/static/media/card-danger.8cb1a52f.png" class="card-img">
+                        <ul class="list-group">
+                            <li class="list-group-item">8000 words</li>
+                            <li class="list-group-item">1 user</li>
+                            <li class="list-group-item">No Support</li>
+                        </ul>
+                        <div class="card-prices">
+                            <h3 class="text-on-front"><span>$</span>9</h3>
+                            <h5 class="text-on-back">9</h5>
+                            <p class="plan">Trial plan</p>
+                        </div>
+                    </div>
+                    <div class="text-center mb-3 mt-3 card-footer"><button
+                            class="btn-round btn-just-icon btn btn-danger">Get started</button></div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-5 col-md-12">
+            <h3 class="title">Professional Plan</h3>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <p>Premium pricing is the strategy of consistently pricing at, or near, the high end of the possible price
+                    range to help attract status-conscious consumers. The high pricing of a premium product ...</p>
+            </div>
+            <div class="ml-auto col-md-6">
+                <div class="progress-container progress-warning"><span class="progress-badge">500GB</span>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0"
+                            aria-valuemax="100" style="width: 75%;"></div>
+                    </div>
+                </div>
+                <div class="progress-container progress-primary"><span class="progress-badge">4 years</span>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0"
+                            aria-valuemax="100" style="width: 50%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            
+            <div class="col-lg-4 text-center">
+                <div class="gpt3__header-image"><img src="/static/images/bot2.png" width="100%" style="max-height: 400px;"></div>
+            </div>
+            <div class="col-lg-6">
+                <div data-w-id="811c45b5-82a3-1bff-6df8-2a7a3590c191" class="heading-container centered" style="opacity: 1; margin-top: 50px;">
+                    <h5 class="color-teal">Who is Languster?</h5>
+                    <h2>Artificial intelligence trained to<span class="teal-gradient"> simplify, paraphrase, extend content</span></h2>
+                    <div class="subheadline _720px-max">We consulted with the world’s best SEO and Direct Response Marketing experts
+                      to teach Jasper how to write blog articles, social media posts, website copy, and more...</div>
+                  </div>
+            </div>
+        </div>
+    </div>
+    <img src="https://assets-global.website-files.com/60e5f2de011b86acebc30db7/612d060c41a6c87f4671d4e7_Background%20Pattern.svg" loading="lazy" alt="" class="pattern-video-background">
+    </div>
+
+    {% endblock %}
+

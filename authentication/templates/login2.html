@@ -1,0 +1,123 @@
+{% extends 'login_base.html' %}
+{% load static %}
+{% block content %}
+<div class="container {% if page == 'register' %}right-panel-active{% endif %}" id="container">
+   <div id="sign-up-container" class="form-container sign-up-container {% if page != 'register' %}d-none{% endif %}" style="padding:0px 85px">
+        <form action="{% url 'register' %}" method="POST">
+          <h2 id="typed-text" class="fixed-height mobile-overlay" style="margin:0px;color: white"><img src="/static/images/head.png" width="85px" class="" style="padding:8px"></h2>
+      
+          {% csrf_token %}
+            <h1>Create Account</h1>
+            <!--p>Your Social Campaigns</!--p>
+            <br>
+            <div class="row social-btns">
+              <div class="col-lg-6 col-12">
+                <a href="/google/user-login" class="btn btn-outline-secondary">
+                  <img alt="Logo" src="https://preview.keenthemes.com/metronic8/demo5/assets/media/svg/brand-logos/google-icon.svg" class="h-15px me-3">   
+                  Sign in with Google
+                </a>
+              </div>
+              <div class="col-lg-6 col-12">
+                <a href="/facebook/user-login" class="btn btn-outline-secondary">
+                  <img alt="Logo" src="https://www.freepnglogos.com/uploads/facebook-logo-icon/facebook-logo-icon-file-facebook-icon-svg-wikimedia-commons-4.png" class="h-15px me-3" width="30">   
+                  Sign in with facebook
+                </a>
+              </div>
+            </div>
+            <br>
+            <--span>or use your account</span-->
+            </br>
+            {% include 'alerts.html' %}
+              <div class="row w-100">
+                <div class="col form-group w-100" style="padding:0px; padding-right:4px; ">
+                    {{ form.first_name }}
+                </div> <!-- form-group end.// -->
+                <div class="col form-group w-100" style="padding:0px; padding-left:4px; ">
+                    {{ form.last_name }}
+                </div> <!-- form-group end.// -->
+              </div> <!-- form-row end.// -->
+            {{ form.email }}
+            <span style="color:red!important">{{ form.email.errors }}</span>
+            {{ form.password }}
+            <span style="color:red!important">{{ form.password.errors }}</span>
+            {{form.confirm_password}}
+            <span style="color:red!important">{{ form.non_field_errors }}</span>
+            <br>
+            <button type="submit" class="btn btn-white w-100 shadow">Create account</button>
+            <br>
+            <span>Already have an account? <a href="/login" style="color:blue;">Sign In?</a>
+        </form>
+    </div>
+    <div id="sign-in-container" class="form-container sign-in-container {% if page == 'register' %}d-none{% endif %}" style="padding:0px 85px">
+        <form action="{% url 'login' %}" method="POST">
+          <h2 id="typed-text" class="fixed-height mobile-overlay" style="margin:0px;color: white"><img src="/static/images/head.png" width="85px" class="" style="padding:8px"></h2>
+      
+            {% csrf_token %}
+            <h1>Sign in</h1>
+            <!--p>Your Social Campaigns</!--p>
+            <br>
+            <div class="row social-btns">
+              <div class="col-lg-6 col-12">
+                <a href="/google/user-login" class="btn btn-secondary">
+                  <img alt="Logo" src="https://preview.keenthemes.com/metronic8/demo5/assets/media/svg/brand-logos/google-icon.svg" class="h-15px me-3">   
+                  Sign in with Google
+                </a>
+              </div>
+              <div class="col-lg-6 col-12">
+                <a href="/facebook/user-login" class="btn btn-secondary">
+                  <img alt="Logo" src="https://www.freepnglogos.com/uploads/facebook-logo-icon/facebook-logo-icon-file-facebook-icon-svg-wikimedia-commons-4.png" class="h-15px me-3" width="30">   
+                  Sign in with facebook
+                </a>
+              </div>
+            </div>
+            <br>
+            <span>or use your account</span>
+            </br-->
+            {% include 'alerts.html' %}
+            <input placeholder="Email" type="email" class="form-control" name="email" required>
+            <input placeholder="Password" type="password" class="form-control" name="password" required>
+            <a href="/forgot-password" style="color:blue;">Forgot your password?</a>
+            <button class="btn btn-white w-100 shadow">Sign In</button>
+            <br>
+            <span>Not a member yet? <a href="/register" style="color:blue;">Sign up?</a>
+        </form>
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+            <div><a class="navbar-brand" href="javascript:void(0)" style="margin-left:20px;"><img src="{% static 'images/head.png' %}" style="padding:8px" width="85px"></a></div>
+            <div><a class="navbar-brand" href="javascript:void(0)" style="margin-left:20px;"><img src="/static/images/auth-screens.png" width="550px"></a></div>
+            <h1>Fast, Efficient and Productive</h1>
+            <p>In this kind of post, the blogger introduces a person they’ve interviewed
+                and provides some background information about the interviewee and their
+                work following this is a transcript of the interview.</p>
+                <button class="ghost" id="signIn">Sign In</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                
+                <h2 id="typed-text" class="fixed-height d-inline" style="margin:0px; color: white"><img src="/static/images/head.png" width="85px" class="" style="padding:8px"></h2>
+                <div><a class="navbar-brand" href="javascript:void(0)" style="margin-left:20px;"><img src="/static/images/auth-screens.png" width="550px"></a></div>
+                <h1>Fast, Efficient and Productive</h1>
+                <p>In this kind of post, the blogger introduces a person they’ve interviewed
+                    and provides some background information about the interviewee and their
+                    work following this is a transcript of the interview.</p>
+                <button class="ghost" id="signUp">Sign Up</button>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="overlay text-center mb-3 mobile-overlay">
+      <br>
+      <br>
+        <div><a class="navbar-brand" href="javascript:void(0)" style="margin-left:20px;"><img src="/static/images/auth-screens.png" width="550px"></a></div>
+        <h1>Fast, Efficient and Productive</h1>
+        <p>
+          In this kind of post, the blogger introduces a person they’ve interviewed
+          and provides some background information about the interviewee and their
+          work following this is a transcript of the interview.
+        </p>
+    </div>
+  
+  </div>
+
+{% endblock %}

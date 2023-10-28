@@ -1,0 +1,306 @@
+{% extends 'app_base.html' %}
+{% load static %}
+{% block content %}
+<style>
+  p{
+color:black;
+}
+@media (min-width: 702px){
+.sidebar-mini .sidebar {
+width: 80px;
+
+}}
+
+@media (min-width: 768px){
+
+.timeline > li {
+width: 50% !important;
+margin-top: 60px;
+margin-bottom: 0px !important;
+}
+
+.timeline > li .timeline-panel{
+width: 90% !important;
+}
+.timeline-inverted{
+width: 50% !important;
+float: right !important;
+margin-top: 0px !important;
+}
+.timeline-inverted > .timeline-badge{
+left: 0px !important;
+margin-top: 0px;
+}
+.timeline-badge{
+left: 100% !important;
+}
+
+.feature-icon {
+    border-right: 1px solid #a4a4a4
+}
+
+
+}
+.output-time{
+        font-size: 11px; 
+        color: #a4a4a4;
+        font-weight: 600;
+      }
+      .small-option{
+        background: #eaeaea;
+        padding:3px 5px;
+      }
+
+      .output-time {
+              font-size: 11px;
+              color: #a4a4a4;
+              font-weight: 600;
+            }
+      
+            .btn:hover {
+              background: linear-gradient(45deg, #ff61d3 10%, #b318ff 36%, #b318ff 47%, 76%, #1e43ff) !important;
+              color: white !important;
+            }
+      
+            .btn:hover i {
+              color: white !important;
+            }
+      
+            .btn-languster:hover {
+              background: linear-gradient(45deg, #1e43ff 10%, #b318ff 36%, #b318ff 47%, 76%, #ff61d3) !important;
+              transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
+            }
+      
+            .output-tabs:hover {
+              background-color: #f5f4f4e1 !important;
+            }
+            .alert-success{
+               background-color: rgb(227, 251, 239) !important; 
+            }
+            .alert-old{
+              background-color: #eeeeee;
+            }
+            .alert{
+              border-bottom: 1px solid #cfcfcf;width: 100%; border-radius: 0px; margin: 0px; color: rgb(74, 74, 74); 
+            }
+            .alert:hover{
+              background-color: #eaedff !important;
+            }
+
+.searchBox {
+    margin-left:15px;
+    margin-bottom:5px;
+    background: linear-gradient(45deg, #ff61d3 10%, #b318ff 36%, #b318ff 47%, 76%, #1e43ff);
+    border-radius: 40px;
+  }
+  
+  .searchBox:hover > .searchInput {
+    width: 240px;
+    padding: 0 6px;
+  }
+  
+  .searchBox:hover > .searchButton {
+  background: white;
+  color: #b318ff;
+  }
+  
+  .searchButton {
+    border:none;
+    color: white;
+    float: right;
+    border-radius: 50%;
+    width:30px;
+    height:30px;
+    background: linear-gradient(45deg, #ff61d3 10%, #b318ff 36%, #b318ff 47%, 76%, #1e43ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.4s;
+  }
+  
+  .searchInput {
+    margin-top:3px;
+    border:none;
+    background: none;
+    outline:none;
+    float:left;
+    padding: 0;
+    color: white;
+    font-size: 16px;
+    transition: 0.4s;
+    width: 0px;
+  
+  }
+  
+  .searchInput::placeholder { 
+    color: #e7e7e7;
+  }
+  
+  @media screen and (max-width: 620px) {
+  .searchBox:hover > .searchInput {
+    width: 150px;
+    padding: 0 6px;
+  }
+  }
+</style>
+      <div class="content">
+        <div class="header text-center">
+        <h3 class="title">History</h3>
+        </div>
+        <div class="row justify-content-center" id="filterOptions" class="tabs">
+            <button class="badge badge-pill badge-info tabs_active" data-filter="all">All</button>
+            <button class="badge badge-pill badge-info" data-filter="social">social</button>
+            <button class="badge badge-pill badge-info" data-filter="favorite">favorite</button>
+            <button class="badge badge-pill badge-info" data-filter="product">product</button>
+            <button class="badge badge-pill badge-info" data-filter="seo">seo</button>
+            <div class="searchBox">
+              <input class="searchInput"type="text" id="myInput" onkeyup="search()" name="" placeholder="search">
+              <button class="searchButton" href="#">
+                  <i class="tim-icons icon-zoom-split">
+                  </i>
+              </button>
+          </div>
+        </div>
+        <div class="row">
+        <div class="col-md-12">
+        <div class="card card-timeline card-plain">
+        <div class="card-body">
+        <ul class="timeline features" id="features">
+          {% for feature in features reversed %}
+            <li class="{% if forloop.counter|divisibleby:2 %}timeline-inverted{% endif %} seo">
+            <div class="timeline-badge">
+            <i class="tim-icons icon-planet"></i>
+            </div>
+            <div class="timeline-panel">
+            <a href="/outputs/{{ feature.slug }}">
+                <div class="row">
+                    <div class="col-2">
+                        <div class="feature-icon">
+                            <img src="{{ feature.icon.url }}" width="50px" >
+                        </div>
+                    </div>
+                    <div class="col-9 align-items-center d-flex" style="padding-left:0px; ">
+                        <div class="timeline-body">
+                            <p class="feature-title">{{ feature.title }}</p>
+                            <span class="output-time">5 min ago</span>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </a>
+            </li>
+            {% endfor %}
+        
+        
+        </ul>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+      <!--footer class="footer">
+        <div class="container-fluid">
+          <ul class="nav">
+            <li class="nav-item">
+              <a href="javascript:void(0)" class="nav-link">
+                Creative Tim
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="javascript:void(0)" class="nav-link">
+                About Us
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="javascript:void(0)" class="nav-link">
+                Blog
+              </a>
+            </li>
+          </ul>
+          <div class="copyright">
+            ©
+            <script>
+              document.write(new Date().getFullYear())
+            </script>2018 made with <i class="tim-icons icon-heart-2"></i> by
+            <a href="javascript:void(0)" target="_blank">Creative Tim</a> for a better web.
+          </div>
+        </div>
+      </!--footer-->
+{% endblock %}
+
+
+{% block script %}
+
+<script>
+  $(document).ready(function() {
+    $('#filterOptions button').click(function() {
+        // fetch the class of the clicked item\
+        var ourClass = $(this).attr('data-filter');
+
+        // reset the active class on all the buttons
+        $('#filterOptions button').removeClass('tabs_active');
+        // update the active state on our clicked button
+        $(this).addClass('tabs_active');
+
+        if (ourClass == 'all') {
+            // show all our items
+            var features = document.getElementsByClassName('features')[0];
+            var items = features.getElementsByTagName('li');
+            for (i = 0; i < items.length; i++) {
+              $(items[i]).addClass('d-block');
+              if (i % 2 != 0){
+                $(items[i]).addClass('timeline-inverted');
+              }else{
+                $(items[i]).removeClass('timeline-inverted');
+              }
+            }
+        } else {
+            // hide all elements that don't share ourClass
+            $('.features').children('li:not(.' + ourClass + ')').removeClass('d-block').hide();
+            // show all elements that do share ourClass
+            var items = document.getElementsByClassName(ourClass);
+            for (i = 0; i < items.length; i++) {
+              $(items[i]).addClass('d-block');
+              if (i % 2 != 0){
+                $(items[i]).addClass('timeline-inverted');
+              }else{
+                $(items[i]).removeClass('timeline-inverted');
+              }
+            }
+        }
+        return false;
+    });
+});
+
+function search() {
+  // Declare variables
+  var input, filter, ul, li, a, i, txtValue;
+  input = document.getElementById('myInput');
+  filter = input.value.toUpperCase();
+  features = document.getElementById("features");
+  li = features.getElementsByTagName('li');
+
+  // Loop through all list items, and hide those who don't match the search query
+  var count = 1;
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByClassName("feature-title")[0];
+    b = li[i].getElementsByClassName("output-time")[0];
+    txtValue = a.textContent || a.innerText;
+    txtValue2 = b.textContent || b.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1 || txtValue2.toUpperCase().indexOf(filter) > -1) {
+      $(li[i]).addClass('d-block');
+      if (count % 2 != 0){
+        $(li[i]).removeClass('timeline-inverted');
+      }else{
+        $(li[i]).addClass('timeline-inverted');
+      }
+      count++;
+    } else {
+      $(li[i]).removeClass('d-block').hide();
+    }
+  }
+}
+
+</script>
+
+{% endblock %}

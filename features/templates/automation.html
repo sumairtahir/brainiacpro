@@ -1,0 +1,435 @@
+{% extends 'automation_base.html' %}
+{% load static %}
+{% block css %}
+<style>
+  .box {
+    --border-size: 3px;
+    --border-angle: 0turn;
+    
+    background-size: calc(100% - (var(--border-size) * 2)) calc(100% - (var(--border-size) * 2)), cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    -webkit-animation: bg-spin 3s linear infinite;
+            animation: bg-spin 3s linear infinite;
+  }
+  .in-progress {
+    background-image: linear-gradient(to left, #212529, #212529), conic-gradient(from var(--border-angle), transparent 20%, #08f, #f03);
+  }
+  .complete {
+    border: 2px solid transparent;
+    box-shadow: 0 0 0 4px #00d479;
+  }
+  @-webkit-keyframes bg-spin {
+    to {
+      --border-angle: 1turn;
+    }
+  }
+  @keyframes bg-spin {
+    to {
+      --border-angle: 1turn;
+    }
+  }
+  .box:hover {
+    -webkit-animation-play-state: paused;
+            animation-play-state: paused;
+  }
+  
+  @property --border-angle {
+    syntax: "<angle>";
+    inherits: true;
+    initial-value: 0turn;
+  }
+
+@property --border-angle {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0turn;
+}
+  .progess-effect::before,
+  .progess-effect::after {
+    border: 0 solid transparent;
+    box-sizing: border-box;
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    width: 0;
+    height: 0;
+    bottom: 0;
+    right: 0;
+    box-shadow: inset;
+  }
+   .progess-effect:hover {
+    color: #ffe593;
+    transform: scale(1.05);
+    opacity: 1;
+  }
+    .progess-effect::before {
+    border-bottom-width: 6px;
+    border-left-width: 6px;
+  }
+  
+  .progess-effect::after {
+    border-top-width: 6px;
+    border-right-width: 6px;
+  }
+  
+  .progess-effect:hover::before,
+  .progess-effect:hover::after {
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
+    -webkit-transition: border-color 0s, width 0.25s, height 0.25s;
+    transition: border-color 0s, width 0.25s, height 0.25s;
+    width: 100%;
+    height: 100%;
+  }
+    .progess-effect:hover::before {
+    -webkit-transition-delay: 0s, 0s, 0.25s;
+    transition-delay: 0s, 0s, 0.25s;
+  }
+  
+  .progess-effect:hover::after {
+    -webkit-transition-delay: 0s, 0.25s, 0s;
+    transition-delay: 0s, 0.25s, 0s;
+  }
+  .feature-icon {
+    border-right: 1px solid #a4a4a4
+  }
+
+
+</style>
+{% endblock %}
+{% block content %}
+      <div class="content">
+      
+        <div class="row">
+      
+          <div class="col-md-6 sticky" style="width: 100%; padding: 0px;">
+            <form id="automation_form" action="" method="post" onsubmit="">
+            <div class="card sticky" style="height:88vh; position: sticky;">
+              <div class="card-body">
+                  {% csrf_token %}
+                  <div class="row">
+                    <div class="col-md-12 d-none">
+                      <div class="form-group">
+                        <label><b>Model</b></label>
+                        <br>
+                        <label hidden>Select the model that will generate the completion.</label>
+                        <select id="model" class="form-control" name="model" style="border-color:rgb(182, 182, 182)" hidden>
+                          <option value="GPT3" selected>GPT3</option>
+                          <option value="gpt_j">Gpt-J</option>
+                          <option value="t5_20">T5 - 20b</option>
+                          <option>Bart</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    {% for operation in operations %}
+                    <div class="col-md-12">
+                      <label>{{ operation.operation_title }}</label>
+                      <div class="bg-dark box operation" data-operation-id="{{ operation.id }}">
+                        <div class="card-body">
+                          <a href="javascript:void(0)" id="operation" operation-type="{{ operation.operation_type }}" operation-id="{{ operation.id }}">
+                            <div class="row">
+                                <div class="col-2">
+                                    <div class="feature-icon">
+                                        <img src="{{ operation.icon.url }}" width="50px">
+                                    </div>
+                                </div>
+                                <div class="col-5 align-items-center d-flex" style="padding-left:0px;">
+                                    <div class="timeline-body">
+                                      <p class="feature-title text-light">{{ operation.title }}</p>
+                                      <span class="output-time">{{ operation.text_field_1 }}</span>
+                                    </div>
+                                    <br>
+                                </div>
+                                <div class="col-1">
+                                </div>
+                                <div class="col-4 align-items-center d-done operation-iterations" data-operation-id="{{ operation.id }}" style="padding-left:0px; float:right;" hidden>
+                                  <span class="small-option iteration" data-operation-id="{{ operation.id }}" style="margin-right:5px"><span style="font-size: 14px; color: #5e5e5e;" >1000</span></span>
+                                  <span class="text-light" style="margin-right:5px">out of </span>
+                                  <span class="small-option total-iteration data-operation-id="{{ operation.id }}"" style="margin-right:5px"><span style="font-size: 14px; color: #5e5e5e;" >1000</span></span>
+                                  <span class="text-light" style="margin-right:5px">operations</span>
+                                </div>
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    {% endfor %}
+                  </div>
+              </div>
+              <div class="card-footer">
+                <button class="btn btn-fill clear-inputs"
+                  style="background: #e7e7e7; padding:5px 20px; margin-top:10px; color: #7e7e7e;"><b
+                    style="font-size: 11px; ">settings</b></button>
+      
+                <span style="border: 2px solid blue; float: right; border-radius: 10px;">
+                  <button id="generate" type="submit"
+                    class="btn btn-languster generate btn-loader">Run -> 
+                    <span class="loader d-none"></span>
+                  </button>
+                </span>
+                <select id="no_outputs" class="form-control" style="max-width: 100px; float:right; margin-top:5px; margin-right:5px ;">
+                  <option value="1" selected>1 time</option>
+                  <option value="2" >2 times</option>
+                  <option value="3" selected>1000 times</option>
+                </select>
+              </div>
+            </div>
+
+          </form>
+          </div>
+          <style>
+            
+          </style>
+          <div class="col-md-6" style="padding:0px 0px 5px 5px;">
+            <div>
+              <form id="operation_settings_form" class="card" style="height:88vh;" action="" method="post" onsubmit="">
+                {% csrf_token %}
+                <div class="card-header" style="padding:0px; border: 1px solid #cfcfcf; border-bottom: none;">
+                  <h5 class="title" style="margin-bottom: 0px;">
+                    <span><button class="output-tabs"
+                        style="border:none;background:none; padding: 10px; border-right: 1px solid #cfcfcf; background-color: #f5f4f4e1;"><i
+                          class="tim-icons icon-sound-wave"></i> New outputs</button></span>
+                    <span><!--button class="output-tabs"
+                        style="border:none;background:none; padding: 10px; border-right: 1px solid #cfcfcf;"> <i
+                          class="tim-icons icon-watch-time"></i> History</button></span-->
+                  </h5>
+                </div>
+                <div class="card-body" style="border: 1px solid #cfcfcf; border-bottom:none max-height: 100%;
+                        overflow-y: scroll;">
+                  <div class="row">
+                      <div class="col-md-12" id="operation_settings">
+                        <div id="previous_output_keys">
+
+                        </div>
+                        <div id="operation-settings-fields" class="">
+                        </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="card-footer">
+                  <span style="border: 2px solid blue; float: right; border-radius: 10px;" hidden>
+                    <button id="save-operation-settings" type="submit"
+                      class="btn btn-languster btn-loader">Save
+                      <span class="loader d-none"></span>
+                    </button>
+                  </span>
+                </div>
+              </form>
+        </div>
+      </div>
+{% endblock %}
+
+{% block script %}
+
+
+<script>
+  
+  function copy_text(){
+    showNotification('Text Copied!');
+  }
+
+  $('.clear-inputs').on('click', function (event) {
+    event.preventDefault();
+    var form = document.getElementById('feature_form')
+    form.reset()
+  })
+
+
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+  $(document).ready(function(){
+
+    {% for input in feature.inputs.all %}
+      {% if input.input_type == "text_field" %}
+        title_counter($("input[name='{{ input.input_key }}']"), "{{ input.input_key }}", "input");
+      {% elif input.input_type == "textarea" %}
+        title_counter($("textarea[name='{{ input.input_key }}']"), "{{ input.input_key }}", "textarea");
+      {% endif %}
+    {% endfor %}
+
+    $(document).on('click', '#operation', function (){
+      var btn = this
+      var id = $(this).attr('operation-id');
+      $("#save-operation-settings").parent().attr("hidden", false);;
+      $.ajax({
+        url: '/automation/get-operation-settings/' + id,
+        method: 'POST',
+        data: {
+            'csrfmiddlewaretoken': '{{ csrf_token }}',
+          },
+        success: function (data) {
+          $('#operation-settings-fields').html('');
+          $("#previous_output_keys").html("<label>Output from previous operations</label><br>");
+          
+          if (data.previous_outputs.length==0)
+              $("#previous_output_keys").html("");
+
+          for (var i=0; i<data.previous_outputs.length; i++){
+            $("#previous_output_keys").append(`
+              <button class="badge badge-pill badge-info prev_operation__key" type="button" data-key="${data.previous_outputs[i]['output_key']}" >${data.previous_outputs[i]['title']}</button>
+            `);
+          }
+
+          if (data.operations.operation_type == 2 || data.operations.operation_type==3 || data.operations.operation_type==4){
+            if (data.operations.operation_type==4) {
+              $('#operation-settings-fields').html(`
+                <label>Title</label>
+                <input type="text" class="form-control2 form-control-solid prompt-inputs mb-3" name="text_field_2" value="${data.operations.text_field_2}" placeholder="Article Title">
+              `)
+              $('#operation-settings-fields').append('<label>Content</label>')
+            }
+            $('#operation-settings-fields').append(
+              `<textarea id="prompt" type="text" name="text_area_1" limit="600" class="form-control2 form-control-solid prompt-inputs" rows="50" placeholder="Article Content"
+              style="border: 1px rgb(182, 182, 182) solid; border-radius: 8px; max-height: 150px;" required>${data.operations.text_area_1}</textarea>`)
+          }
+          else if (data.operations.operation_type == 1) {
+            var current_file = ""
+            if (data.operations.file != "")
+                current_file = `<span style='color:#b318ff; font-weight:bold;'>currently:</span>" ${data.operations.file}`
+            $('#operation-settings-fields').html(`${current_file}<label>Excel File</label><input type="file" class="form-control2 form-control-solid text-light" name="file"><br>`);
+          }
+          else{
+            $('#operation-settings-fields').html('');
+          }
+          $('#operation-settings-fields').append(`
+              <label>Expected Output</label>
+              <select id="expected_output" name="expected_output" class="form-control2 form-control-solid" name="model" style="border-color:rgb(182, 182, 182)">
+              </select>
+              `
+            )
+          for (var key in data.expected_outputs) {
+            $("#expected_output").append(`<option class="expected_output_option" value="${key}">${data.expected_outputs[key]}</option>`)
+          }
+          $(`.expected_output_option[value='${data.operations.expected_output}']`).attr("selected", true);
+          $('#operation_settings_form').attr("operation-id", id);
+
+          
+        }
+    })
+  });
+
+  $(document).on('click', '.prev_operation__key', function (){
+    var prev_operation__key = $(this).attr('data-key');
+    $('#prompt').append("{" + prev_operation__key + "}");
+  });
+
+
+    $("#generate").click(function (event){
+      
+      event.preventDefault();
+      var btn = this
+      var form = $('#automation_form');
+      btn_loader(btn, true);
+
+      var validator = form.validate({
+        rules: {
+            input_sequence: {
+                required: true,
+            },
+        },
+      });
+
+      if (!form.valid()) {
+        btn_loader(btn, false);
+        return;
+      }
+
+      var form = document.getElementById('automation_form');
+      var formData = new FormData(form);
+
+      console.log(formData)
+
+      $.ajax({
+        url: '/automation/',
+        method: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+          if (data.status == 201){
+            
+          }
+          else if (data.status == 400){
+            showNotification(data.error, color=4);
+          }
+          btn_loader(btn, false);
+        }
+      });
+    });
+
+    $("#save-operation-settings").click(function (event){
+      event.preventDefault();
+      var btn = this
+      var form = $('#operation_settings_form');
+      var operation_id = form.attr("operation-id")
+      btn_loader(btn, true);
+
+      var validator = form.validate({
+        rules: {
+            input_sequence: {
+                required: true,
+            },
+        },
+      });
+
+      if (!form.valid()) {
+        btn_loader(btn, false);
+        return;
+      }
+
+      var form = document.getElementById('operation_settings_form');
+      var formData = new FormData(form);
+
+      $.ajax({
+        url: '/automation/edit-operation-settings/' + operation_id,
+        method: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+          showNotification("Operation saved successfully.", color=2);
+          btn_loader(btn, false);
+        },
+        error: function () {
+          showNotification("Something went wrong.", color=4);
+          btn_loader(btn, false);
+        }
+      });
+    });
+
+    var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+    var ws_path = ws_scheme + '://' + window.location.host + "/operation-status/" // development
+
+    const socket = new WebSocket(ws_path);  // WebSocket URL
+
+    socket.onmessage = function (e) {
+        const data = JSON.parse(e.data);
+        const operation_id = data.operation_id;
+
+        if (data.type == 'update_status') {
+          const status = data.status
+          if (status == 2) {
+            $(`.operation[data-operation-id="${operation_id}"]`).removeClass('in-progress completed');
+            $(`.operation[data-operation-id="${operation_id}"]`).addClass('in-progress');
+          } else if (status == 3) {
+            $(`.operation[data-operation-id="${operation_id}"]`).removeClass('in-progress completed');
+            $(`.operation[data-operation-id="${operation_id}"]`).addClass('completed');
+          } else {
+            $(`.operation[data-operation-id="${operation_id}"]`).removeClass('in-progress completed');
+          }
+        } else if (data.type == 'update_iterations') {
+          $(`.operation-iterations[data-operation-id="${operation_id}"]`).removeClass('d-none');
+          $(`.operation-iterations[data-operation-id="${operation_id}"]`).addClass('d-flex');
+          $(`.iteration[data-operation-id="${operation_id}"]`).html(data.iteration_count);
+          $(`.total-iterations[data-operation-id="${operation_id}"]`).html(data.total_iterations);
+        }
+    };
+  });
+
+
+</script>
+{% endblock %}

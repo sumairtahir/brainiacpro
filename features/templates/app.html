@@ -1,0 +1,251 @@
+{% extends 'app_base.html' %}
+{% load static %}
+{% block content %}
+      <div class="content">
+      
+        <div class="row">
+      
+          <div class="col-md-6 sticky" style="width: 100%; padding: 0px;">
+            <form id="feature_form" action="" method="post" onsubmit="">
+            <div class="card sticky" style="height:88vh; position: sticky;">
+              <div class="card-body">
+                  {% csrf_token %}
+                  <div class="row">
+                    <div class="col-md-12 d-none">
+                      <div class="form-group">
+                        <label><b>Model</b></label>
+                        <br>
+                        <label hidden>Select the model that will generate the completion.</label>
+                        <select id="model" class="form-control" name="model" style="border-color:rgb(182, 182, 182)" hidden>
+                          <option value="GPT3" selected>GPT3</option>
+                          <option value="gpt_j">Gpt-J</option>
+                          <option value="t5_20">T5 - 20b</option>
+                          <option>Bart</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    {% for input in feature.inputs.all %}
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>{{ input.title }}</label>
+                          <label style="float: right;" class="counter {{ input.input_key }}_counter">{{ input.input_length }}</label>
+                          {% if input.input_type == "text_field" %}
+                            <input id="{{ input.input_key }}" type="text" class="form-control2 form-control-solid prompt-inputs mb-3" limit="{{ input.input_length }}" name="{{ input.input_key }}" placeholder="{{ input.placeholder }}" {% if input.is_required %}required{% endif %}>
+                          {% elif input.input_type == "textarea" %}
+                            <textarea id="{{ input.input_key }}" type="text" name="{{ input.input_key }}" limit="{{ input.input_length }}" class="form-control2 form-control-solid prompt-inputs" rows="50" name="{{ input.input_key }}" placeholder="{{ input.placeholder }}"
+                              style="border: 1px rgb(182, 182, 182) solid; border-radius: 8px; max-height: 150px;" required></textarea>
+                          {% elif input.input_type == "select_picker" %}
+                            <select id="{{ input.input_key }}" class="form-control prompt-inputs" name="{{ input.input_key }}" placeholder="{{ input.placeholder }}">
+                              {% for option in input.options.all %}
+                                <option value="{{ option.option_key }}" >{{ option.title }}</option>
+                              {% endfor %}
+                            </select>
+                          {% endif %}
+                        </div>
+                      </div>
+                    {% endfor %}
+                  </div>
+      
+                
+              </div>
+              <div class="card-footer">
+                <button class="btn btn-fill clear-inputs"
+                  style="background: #e7e7e7; padding:5px 20px; margin-top:10px; color: #7e7e7e;"><b
+                    style="font-size: 11px; ">x clear inputs</b></button>
+      
+                <span style="border: 2px solid blue; float: right; border-radius: 10px;">
+                  <button id="generate" type="submit"
+                    class="btn btn-languster generate btn-loader">Generate -> 
+                    <span class="loader d-none"></span>
+                  </button>
+                </span>
+                <select id="no_outputs" class="form-control" style="max-width: 100px; float:right; margin-top:5px; margin-right:5px ;">
+                  <option value="1" selected>1 outputs</option>
+                  <option value="2" >2 outputs</option>
+                  <option value="3" selected>3 outputs</option>
+                </select>
+              </div>
+            </div>
+
+          </form>
+          </div>
+          <style>
+            
+          </style>
+          <div class="col-md-6" style="padding:0px 0px 5px 5px;">
+            <div class="card" style="height:88vh;">
+              <div class="card-header" style="padding:0px; border: 1px solid #cfcfcf; border-bottom: none;">
+                <h5 class="title" style="margin-bottom: 0px;">
+                  <span><button class="output-tabs"
+                      style="border:none;background:none; padding: 10px; border-right: 1px solid #cfcfcf; background-color: #f5f4f4e1;"><i
+                        class="tim-icons icon-sound-wave"></i> New outputs</button></span>
+                  <span><!--button class="output-tabs"
+                      style="border:none;background:none; padding: 10px; border-right: 1px solid #cfcfcf;"> <i
+                        class="tim-icons icon-watch-time"></i> History</button></span-->
+                </h5>
+              </div>
+              <div id="outputs" class="card-body" style="padding: 0px;  border: 1px solid #cfcfcf; max-height: 100%;
+                      overflow-y: scroll;">
+                <!--div class="alert alert-old"
+                  style="border-bottom: 1px solid #cfcfcf;width: 100%; border-radius: 0px; color: rgb(74, 74, 74); margin: 0px;">
+                  
+                  <div>
+                    <span class="output-time">5 min</span>
+                    <button class="btn small-option star_output" data-output-id='1' style="margin-left: 30px;" rel="tooltip" data-original-title="star"><i
+                        style="font-size: 12px; color: #5e5e5e;"  class="tim-icons icon-shape-star"></i></b></button>
+                    <button type="submit" rel="tooltip" data-original-title="copy" class="btn small-option" onclick="copy_text()"><i style="font-size: 12px; color: #5e5e5e;"
+                        class="tim-icons icon-single-copy-04"></i></b></button>
+      
+                    <span style="float: right;">
+                      <button type="submit" class="btn small-option" rel="tooltip" data-original-title="move up"><i style="font-size: 12px; color: #5e5e5e;"
+                          class="tim-icons icon-minimal-up"></i></b></button>
+                      <button type="submit" class="btn small-option" rel="tooltip" data-original-title="move down"><i style="font-size: 12px; color: #5e5e5e;"
+                          class="tim-icons icon-minimal-down"></i></b></button>
+                      <button type="submit" rel="tooltip" data-original-title="remove" aria-hidden="true" data-dismiss="alert" aria-label="Close"
+                        class="btn btn-primary small-option"><i style="font-size: 12px; color: #5e5e5e;"
+                          class="tim-icons icon-trash-simple"></i></b></button>
+                    </span>
+                  </div>
+                  <br>
+                  <span><b>“Forefront has pushed our business years into the future, allowing us to focus on marketing and
+                      product design instead of training and deployment solutions. It’s fast, reliable, and easy to use… it’s
+                      a catalyst that’s taking our business to the next level.”</b></span>
+                  <br>
+                  <span><b>“Forefront has pushed our business years into the future, allowing us to focus on marketing and
+                      product design instead of training and deployment solutions. It’s fast, reliable, and easy to use… it’s
+                      a catalyst that’s taking our business to the next level.”</b></span>
+                </div>
+            </div-->
+      
+          </div>
+        </div>
+      </div>
+{% endblock %}
+
+{% block script %}
+
+
+<script>
+  
+  function copy_text(){
+    showNotification('Text Copied!');
+  }
+
+  $('.clear-inputs').on('click', function (event) {
+    event.preventDefault();
+    var form = document.getElementById('feature_form')
+    form.reset()
+  })
+
+
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+  $(document).ready(function(){
+
+    {% for input in feature.inputs.all %}
+      {% if input.input_type == "text_field" %}
+        title_counter($("input[name='{{ input.input_key }}']"), "{{ input.input_key }}", "input");
+      {% elif input.input_type == "textarea" %}
+        title_counter($("textarea[name='{{ input.input_key }}']"), "{{ input.input_key }}", "textarea");
+      {% endif %}
+    {% endfor %}
+
+    $(document).on('click', '.star_output', function (){
+      var btn = this
+      var id = $(this).attr('data-output-id');
+      $.ajax({
+        url: '/features/star_output/' + id,
+        method: 'POST',
+        data: {
+            'csrfmiddlewaretoken': '{{ csrf_token }}',
+          },
+        success: function (data) {
+          if (data.output == '1'){
+            $(btn).addClass('btn-active');
+          }else{
+            $(btn).removeClass('btn-active')
+          }
+          
+        }
+    })
+  });
+
+
+    $("#generate").click(function (event){
+      
+      event.preventDefault();
+      var btn = this
+      var form = $('#feature_form');
+      btn_loader(btn, true);
+
+      var validator = form.validate({
+        rules: {
+            input_sequence: {
+                required: true,
+            },
+        },
+      });
+
+      if (!form.valid()) {
+        btn_loader(btn, false);
+        return;
+      }
+
+      var user_input_fields = {}
+      var model = document.getElementById('model').value;
+      var no_outputs = document.getElementById('no_outputs').value;
+      data = {
+        'csrfmiddlewaretoken': '{{ csrf_token }}',
+        'model': model,
+        'no_outputs': no_outputs
+      }
+
+      {% for input in feature.inputs.all %}
+        data['{{ input.input_key }}'] = document.getElementById('{{ input.input_key }}').value;
+      {% endfor %}
+
+      $.ajax({
+        url: '/features/{{ feature.slug }}',
+        method: 'POST',
+        data: data,
+        dataType: 'json',
+        success: function (data) {
+          if (data.status == 201){
+            for(var i=0;i < no_outputs;i++){
+              $('#outputs').prepend('\
+                      <div class="alert alert-new new-output">\
+                      <div>\
+                        <span class="output-time">just now</span>\
+                        <button type="submit" class="btn small-option star_output" data-output-id='+ data.output_ids[i] +' style="margin-left: 30px;"><i\
+                            style="font-size: 12px; color: #5e5e5e;" class="tim-icons icon-shape-star"></i></b></button>\
+                        <button type="submit" class="btn small-option" onclick="copy_text()"><i style="font-size: 12px; color: #5e5e5e;"\
+                            class="tim-icons icon-single-copy-04"></i></b></button>\
+                        <span style="float: right;">\
+                          <button type="submit" aria-hidden="true" data-dismiss="alert" aria-label="Close"\
+                            class="btn btn-primary small-option"><i style="font-size: 12px; color: #5e5e5e;"\
+                              class="tim-icons icon-simple-remove"></i></b></button>\
+                        </span>\
+                      </div>\
+                      <br/>\
+                      <pre class="output-text"><b>'+ data.outputs[i].trim() +'</b></pre>'
+              )
+              $('.new-output').fadeIn();
+              $('.new-output').css({opacity: 0, visibility: "visible"}).animate({opacity: 1}, 1500);
+              $('.new-output').removeClass('new-output');
+            }
+          }
+          else if (data.status == 400){
+            showNotification(data.error, color=4);
+          }
+          btn_loader(btn, false);
+        }
+      });
+    });
+  });
+
+
+</script>
+{% endblock %}

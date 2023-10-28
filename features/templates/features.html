@@ -1,0 +1,405 @@
+{% extends 'app_base.html' %}
+{% load static %}
+{% block content %}
+<style>
+  .card::before,
+.card::after {
+  border: 0 solid transparent;
+  box-sizing: border-box;
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  width: 0;
+  height: 0;
+  bottom: 0;
+  right: 0;
+  box-shadow: inset;
+}
+ .card:hover {
+  color: #ffe593;
+  transform: scale(1.05);
+  opacity: 1;
+}
+  .card::before {
+  border-bottom-width: 3px;
+  border-left-width: 3px;
+}
+
+.card::after {
+  border-top-width: 3px;
+  border-right-width: 3px;
+}
+
+.card:hover::before,
+.card:hover::after {
+  border-image-slice: 1;
+  border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
+  -webkit-transition: border-color 0s, width 0.25s, height 0.25s;
+  transition: border-color 0s, width 0.25s, height 0.25s;
+  width: 100%;
+  height: 100%;
+}
+  .card:hover::before {
+  -webkit-transition-delay: 0s, 0s, 0.25s;
+  transition-delay: 0s, 0s, 0.25s;
+}
+
+.card:hover::after {
+  -webkit-transition-delay: 0s, 0.25s, 0s;
+  transition-delay: 0s, 0.25s, 0s;
+}
+.searchBox {
+  margin-left:15px;
+  margin-bottom:5px;
+  background: linear-gradient(45deg, #ff61d3 10%, #b318ff 36%, #b318ff 47%, 76%, #1e43ff);
+  border-radius: 40px;
+}
+
+.searchBox:hover > .searchInput {
+  width: 240px;
+  padding: 0 6px;
+}
+
+.searchBox:hover > .searchButton {
+background: white;
+color: #b318ff;
+}
+
+.searchButton {
+  border:none;
+  color: white;
+  float: right;
+  border-radius: 50%;
+  width:30px;
+  height:30px;
+  background: linear-gradient(45deg, #ff61d3 10%, #b318ff 36%, #b318ff 47%, 76%, #1e43ff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.4s;
+}
+
+.searchInput {
+  margin-top:3px;
+  border:none;
+  background: none;
+  outline:none;
+  float:left;
+  padding: 0;
+  color: white;
+  font-size: 16px;
+  transition: 0.4s;
+  width: 0px;
+
+}
+
+.searchInput::placeholder { 
+  color: #e7e7e7;
+}
+
+@media screen and (max-width: 620px) {
+.searchBox:hover > .searchInput {
+  width: 150px;
+  padding: 0 6px;
+}
+}
+
+.like {
+  position: relative;
+  cursor: pointer;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+.like::after {
+  z-index: -2;
+  position: absolute;
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #f6f6f8;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.like svg {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.like svg path {
+  transition: all 0.2s ease;
+}
+.like:hover::after {
+  border-radius: 10px;
+  background: #feeef3;
+  transform: scale(0.88);
+}
+.like:hover svg path {
+  fill: #f65c8a;
+}
+
+.like:active svg {
+  transform: scale(0.6);
+}
+
+.like-active {
+  border-radius: 10px;
+  background: #feeef3 !important;
+}
+
+.like-active svg path {
+  fill: #f65c8a !important;
+}
+
+#heart_icon {
+  position: absolute;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 10px;
+  color: white;
+  background: #f65c8a;
+  border-radius: 24px;
+  line-height: 12px;
+  z-index: -9;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  font-family: -apple-system, sans-serif;
+  font-style: normal;
+}
+
+.count-motion {
+  transform: translatey(-160%);
+}
+
+span {
+  opacity: 1;
+  z-index: -99;
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  border-radius: 100%;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0) 0%, #feeff3 100%);
+}
+
+.bubble-motion {
+  -webkit-animation: bubbleMotion 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+          animation: bubbleMotion 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+@-webkit-keyframes bubbleMotion {
+  to {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+@keyframes bubbleMotion {
+  to {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+.dr {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  width: 100px;
+}
+</style>
+      <div class="content">
+        <h2 class="title">Features</h2>
+        <div class="row" id="filterOptions" class="tabs">
+        <button class="badge badge-pill badge-info tabs_active" data-filter="all">All</button>
+        {% for category in categories %}
+          <button class="badge badge-pill badge-info" data-filter="{{ category.code }}">{{ category.title }}</button>
+        {% endfor %}
+          <div class="searchBox">
+            <input class="searchInput"type="text" id="myInput" onkeyup="search()" name="" placeholder="search">
+            <button class="searchButton" href="#">
+                <i class="tim-icons icon-zoom-split">
+                </i>
+            </button>
+          </div>
+        </div>
+        <br>
+        <div class="row features" id="features">
+          {% for feature in features %}
+          <div class="col-lg-4 d-flex{% for category in feature.category.all %} {{ category.code }}{% endfor %}">
+              <a href="{% url 'feature' feature.slug %}" class="card">
+                  <div class="card-header">
+                    <div>
+                    <img src="{{ feature.icon.url }}" width="50px" style="float:left">
+                    <div>
+                      <div class="like {% if feature.is_fav == 1 %}like-active{% endif %}" data-feature-id="{{ feature.id }}" style="float:right">
+                        <svg width="23" height="20" viewBox="0 0 23 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M11.9649 3.12832C8.29171 -2.5454 0.857422 0.545461 0.857422 6.72603C0.857422 11.3672 11.0494 18.6272 11.9649 19.5712C12.8866 18.6272 22.5717 11.3672 22.5717 6.72603C22.5717 0.592318 15.6449 -2.5454 11.9649 3.12832Z" fill="#3E4373" />
+                        </svg>
+                      </div>
+                    </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <h3 class="card-title" style="margin-top: 10px"><b>{{ feature.title }}</b></h3>
+                  </div>
+                  <div class="card-body">
+                    <p>{{ feature.meta_description }}</p>
+                  </div>
+              </a>
+          </div>
+          {% endfor %}
+          <div class="col-lg-4 d-flex seo">
+              <a href="" class="card ">
+                  <div class="card-header">
+                    <img src="{% static 'images/icons/simplify-icon2.png' %}" width="50px">
+                    <h3 class="card-title" style="margin-top: 10px"><b>Text Simplification</b></h3>
+                  </div>
+                  <div class="card-body">
+                    <p>We consulted with the world’s best SEO and Direct Response Marketing experts
+                      to teach Jasper how to write blog articles, social media posts, website copy, and more...</p>
+                  </div>
+                </a>
+          </div>
+  
+          <div class="col-lg-4 d-flex favorite">
+              <a href="#" class="card">
+                  <d class="card-header">
+                    <img src="{% static 'images/icons/upload.png' %}" width="50px">
+                    <h3 class="card-title" style="margin-top: 10px"><b>Content Improver</b></h3>
+                  </d>
+                  <div class="card-body">
+                    <p>We consulted with the world’s best SEO and Direct Response Marketing experts
+                      to teach Jasper how to write blog articles, social media posts, website copy, and more...</p>
+                  </div>
+                </a>
+          </div>
+          <div class="col-lg-4 d-flex social">
+              <a href="text_paraphrasing" class="card">
+                  <div class="card-header">
+                    <img src="{% static 'images/icons/paraphrase2.png' %}" width="50px">
+                    <h3 class="card-title" style="margin-top: 10px"><b>Paraphraser</b></h3>
+                  </div>
+                  <div class="card-body">
+                    <p>We consulted with the world’s best SEO and Direct Response Marketing experts
+                      to teach Jasper how to write blog articles, social media posts, website copy, and more...</p>
+                  </div>
+                </a>
+          </div>
+          <div class="col-lg-4 d-flex social">
+              <a href="#" class="card">
+                  <div class="card-header">
+                    <img src="{% static 'images/icons/headline2.png' %}" width="50px">
+                    <h3 class="card-title" style="margin-top: 10px"><b>Blog Headline</b></h3>
+                  </div>
+                  <div class="card-body">
+                    <p>We consulted with the world’s best SEO and Direct Response Marketing experts
+                      to teach Jasper how to write blog articles, social media posts, website copy, and more...</p>
+                  </div>
+                </a>
+          </div>
+          <div class="col-lg-4 d-flex seo">
+              <a href="text_summerization" class="card">
+                  <div class="card-header">
+                    <img src="{% static 'images/icons/headline2.png' %}" width="50px">
+                    <h3 class="card-title" style="margin-top: 10px"><b>Text Summerizer</b></h3>
+                  </div>
+                  <div class="card-body">
+                    <p>We consulted with the world’s best SEO and Direct Response Marketing experts
+                      to teach Jasper how to write blog articles, social media posts, website copy, and more...</p>
+                  </div>
+                </a>
+          </div>
+          <div class="col-lg-4 d-flex">
+              <a href="#" class="card">
+                  <div class="card-header">
+                    <img src="{% static 'images/icons/tonechanger2.png' %}" width="50px">
+                    <h3 class="card-title" style="margin-top: 10px"><b>Text Style changer</b></h3>
+                  </div>
+                  <div class="card-body">
+                    <p>We consulted with the world’s best SEO and Direct Response Marketing experts
+                      to teach Jasper how to write blog articles, social media posts, website copy, and more...</p>
+                  </div>
+                </a>
+          </div>
+        </div>
+      </div>
+
+{% endblock %}
+
+
+{% block script %}
+
+<script>
+  $(document).ready(function() {
+    $('#filterOptions button').click(function() {
+        // fetch the class of the clicked item\
+        var ourClass = $(this).attr('data-filter');
+
+        // reset the active class on all the buttons
+        $('#filterOptions button').removeClass('tabs_active');
+        // update the active state on our clicked button
+        $(this).addClass('tabs_active');
+
+        if (ourClass == 'all') {
+            // show all our items
+            $('.features').children('div').addClass('d-flex');
+        } else {
+            // hide all elements that don't share ourClass
+            $('.features').children('div:not(.' + ourClass + ')').removeClass('d-flex').hide();
+            // show all elements that do share ourClass
+            $('.features').children('div.' + ourClass).addClass('d-flex');
+        }
+        return false;
+    });
+});
+
+function search() {
+  // Declare variables
+  var input, filter, ul, li, a, i, txtValue;
+  input = document.getElementById('myInput');
+  filter = input.value.toUpperCase();
+  features = document.getElementById("features");
+  li = features.getElementsByClassName('col-lg-4');
+
+  // Loop through all list items, and hide those who don't match the search query
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByClassName("card-header")[0];
+    b = li[i].getElementsByClassName("card-body")[0];
+    txtValue = a.textContent || a.innerText;
+    txtValue2 = b.textContent || b.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1 || txtValue2.toUpperCase().indexOf(filter) > -1) {
+      $(li[i]).addClass('d-flex');
+    } else {
+      $(li[i]).removeClass('d-flex').hide();
+    }
+  }
+}
+
+const likeButton = document.querySelector('.like');
+const anchorTag = document.querySelector('.card');
+
+$('.like').on('click', function(event){
+    event.preventDefault(); 
+    var btn = this
+    var id = $(this).attr('data-feature-id');
+    $.ajax({
+      url: '/features/fav_feature/' + id,
+      method: 'POST',
+      data: {
+          'csrfmiddlewaretoken': '{{ csrf_token }}',
+        },
+      success: function (data) {
+        if (data.output == '1'){
+          $(btn).addClass('like-active');
+        }else{
+          $(btn).removeClass('like-active')
+        }
+        
+      }
+  })
+});
+
+</script>
+
+{% endblock %}

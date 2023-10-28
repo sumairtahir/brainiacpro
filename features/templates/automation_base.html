@@ -1,0 +1,754 @@
+<!--
+=========================================================
+* * Black Dashboard - v1.0.1
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/black-dashboard
+* Copyright 2019 Creative Tim (https://www.creative-tim.com)
+
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/apple-icon.png' %}">
+    <link rel="icon" type="image/png' %}" href="{% static 'assets/img/favicon.png' %}">
+    <title>
+        Black Dashboard by Creative Tim
+    </title>
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <!-- Nucleo Icons -->
+    <link href="{% static 'assets/css/nucleo-icons.css' %}" rel="stylesheet" />
+    <!-- CSS Files -->
+    <link href="{% static 'assets/css/black-dashboard.css' %}" rel="stylesheet" />
+    {% block css %}
+    {% endblock %}
+</head>
+
+<body class="white-content sidebar-mini" style="{% if app %}overflow:hidden{% endif %}">
+    <style>
+        p {
+            color: black;
+        }
+    </style>
+    <style>
+    p{
+        color:black;
+    }
+    .nav> .active{
+      background: linear-gradient(45deg,#ff61d3 10%,#b318ff 36%,#b318ff 47%, 76%,#1e43ff);
+    }
+    .nav> .active i{
+      color: white !important;
+    }
+    .nav> .active p{
+        color: white !important;
+    }
+    .simple-text{
+      
+      background: linear-gradient(45deg,#b318ff 10%,#b318ff 18%, #1e43ff 47%, 76%,#ff61d3);;
+                -webkit-text-fill-color: transparent;
+                -webkit-background-clip: text;
+    }
+    .nav p:hover{
+        color: #b318ff !important;
+    }
+    textarea.error{
+        border: 1px solid red !important;
+    }
+    input.error{
+        border: 1px solid red !important;
+    }
+    select.error{
+        border: 1px solid red !important;
+    }
+    label.error{
+        color:red !important;
+    }
+    div.sticky {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 80px;
+
+    }
+
+    .border-gradient {
+        border-top: 10px solid;
+        border-image-slice: 1;
+        border-width: 5px;
+    }
+
+    .border-gradient-purple {
+        border-image-source: linear-gradient(45deg, #ff61d3 10%, #b318ff 36%, #b318ff 47%, #30b6ff 67%, #00f0ff 76%, #1e43ff);
+    }
+
+    .btn-languster {
+        background: linear-gradient(45deg, #ff61d3 10%, #b318ff 36%, #b318ff 47%, 76%, #1e43ff);
+        margin: 1px;
+    }
+
+    .btn-secondary{
+      background: #0028f7;
+    }
+
+    .badge {
+        padding: 8px 25px;
+        margin-left: 15px;
+        background-color: #cfcfcf;
+        color: rgb(91, 91, 91);
+
+    }
+
+    .tabs_active {
+        background: linear-gradient(45deg, #ff61d3 10%, #b318ff 36%, #b318ff 47%, 76%, #1e43ff);
+        color: white;
+    }
+    .output-time {
+        font-size: 11px;
+        color: #a4a4a4;
+        font-weight: 600;
+      }
+      .output-text{
+        font-family: sans-serif;
+        font-style: normal;
+        font-size: 1.1em;
+        white-space: break-spaces;
+      }
+      .small-option {
+        background: #ffffff;
+        padding: 3px 5px;
+      }
+
+      .btn-active{
+        background: linear-gradient(45deg, #ff61d3 10%, #b318ff 36%, #b318ff 47%, 76%, #1e43ff) !important;
+      }
+      .btn-active i{
+        color: white !important;
+      }
+
+      .btn-languster:active:focus{
+        background: linear-gradient(45deg, #ff61d3 10%, #b318ff 36%, #b318ff 47%, 76%, #1e43ff) !important;
+      }
+
+      .btn-languster:focus{
+        background: linear-gradient(45deg, #ff61d3 10%, #b318ff 36%, #b318ff 47%, 76%, #1e43ff) !important;
+      }
+
+      .btn:hover {
+        background: linear-gradient(45deg, #ff61d3 10%, #b318ff 36%, #b318ff 47%, 76%, #1e43ff) !important;
+        color: white !important;
+      }
+
+      .btn:hover i {
+        color: white !important;
+      }
+
+      .btn-languster:hover {
+        background: linear-gradient(45deg, #1e43ff 10%, #b318ff 36%, #b318ff 47%, 76%, #ff61d3) !important;
+        transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
+      }
+
+      .output-tabs:hover {
+        background-color: #f5f4f4e1 !important;
+      }
+      .alert-new{
+         background-color: rgb(227, 251, 239) !important; 
+         color: rgb(74, 74, 74);
+      }
+      .alert-old{
+        background-color: #eeeeee;
+        color: rgb(74, 74, 74);
+      }
+
+      .alert{
+        border-bottom: 1px solid #cfcfcf;width: 100%; border-radius: 0px; margin: 0px; 
+      }
+
+      .alert-new:hover{
+        background-color: #eaedff !important;
+      }
+
+      .alert-old:hover{
+        background-color: #eaedff !important;
+      }
+      
+      .large-font{
+        font-size:xxx-large;
+      }
+      
+      .top-20{
+        position:relative;
+        top:20vh;
+      }
+      @-webkit-keyframes like {
+        0%   { transform: scale(1); }
+        90%   { transform: scale(1.2); }
+        100% { transform: scale(1.1); }
+      }
+      @charset "UTF-8";
+*, *:before, *:after {
+  position: relative;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-bg: #FDF1F2;
+  --color-heart: #EA442B;
+  --easing: cubic-bezier(.7,0,.3,1);
+  --duration: .5s;
+}
+
+@-webkit-keyframes depress {
+  from, to {
+    -webkit-transform: none;
+            transform: none;
+  }
+  50% {
+    -webkit-transform: translateY(5%) scale(0.9);
+            transform: translateY(5%) scale(0.9);
+  }
+}
+@keyframes depress {
+  from, to {
+    -webkit-transform: none;
+            transform: none;
+  }
+  50% {
+    -webkit-transform: translateY(5%) scale(0.9);
+            transform: translateY(5%) scale(0.9);
+  }
+}
+@-webkit-keyframes depress-shadow {
+  from, to {
+    -webkit-transform: none;
+            transform: none;
+  }
+  50% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+  }
+}
+@keyframes depress-shadow {
+  from, to {
+    -webkit-transform: none;
+            transform: none;
+  }
+  50% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+  }
+}
+.like-wrapper {
+  display: grid;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+  z-index: 1;
+}
+.like-wrapper > * {
+  margin: auto;
+  grid-area: 1 / 1;
+}
+
+.counter{
+  float: right;
+}
+
+.heart {
+  width: .5em;
+  height: .5em;
+  display: block;
+  -webkit-transform-origin: center 80%;
+          transform-origin: center 80%;
+}
+.heart > path {
+  stroke: var(--color-heart);
+  stroke-width: 2;
+  fill: transparent;
+  -webkit-transition: fill var(--duration) var(--easing);
+  transition: fill var(--duration) var(--easing);
+}
+.like-button{
+    background: transparent !important;
+    border:none;
+    padding:0;
+}
+
+.like-button:focus .heart {
+  -webkit-animation: heart-bounce var(--duration) var(--easing);
+          animation: heart-bounce var(--duration) var(--easing);
+}
+@-webkit-keyframes heart-bounce {
+  40% {
+    -webkit-transform: scale(0.7);
+            transform: scale(0.7);
+  }
+  0%, 80%, 100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+@keyframes heart-bounce {
+  40% {
+    -webkit-transform: scale(0.7);
+            transform: scale(0.7);
+  }
+  0%, 80%, 100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+/* Added wrapper to prevent layout jank with resizing particles */
+.particles {
+  width: 1px;
+  height: 1px;
+}
+
+.particle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: .1em;
+  width: .1em;
+  border-radius: .05em;
+  background-color: var(--color);
+  --percentage: calc( var(--i) / var(--total-particles) );
+  --Θ: calc( var(--percentage) * 1turn );
+  -webkit-transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(0) scaleY(0);
+          transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(0) scaleY(0);
+  -webkit-transition: all var(--duration) var(--easing);
+  transition: all var(--duration) var(--easing);
+}
+.like-button:focus .particle {
+  -webkit-animation: particles-out calc(var(--duration) * 1.2) var(--easing) forwards;
+          animation: particles-out calc(var(--duration) * 1.2) var(--easing) forwards;
+}
+@-webkit-keyframes particles-out {
+  50% {
+    height: .3em;
+  }
+  50%, 60% {
+    height: .3em;
+    -webkit-transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(0.8em) scale(1);
+            transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(0.8em) scale(1);
+  }
+  60% {
+    height: .2em;
+  }
+  100% {
+    -webkit-transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(1em) scale(0);
+            transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(1em) scale(0);
+  }
+}
+@keyframes particles-out {
+  50% {
+    height: .3em;
+  }
+  50%, 60% {
+    height: .3em;
+    -webkit-transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(0.8em) scale(1);
+            transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(0.8em) scale(1);
+  }
+  60% {
+    height: .2em;
+  }
+  100% {
+    -webkit-transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(1em) scale(0);
+            transform: translate(-50%, -50%) rotate(var(--Θ)) translateY(1em) scale(0);
+  }
+}
+.ripple {
+  height: 1em;
+  width: 1em;
+  border-radius: 50%;
+  overflow: hidden;
+  z-index: 1;
+}
+.ripple:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0.4em solid var(--color-heart);
+  border-radius: inherit;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+}
+.like-button:focus .ripple:before {
+  -webkit-animation: ripple-out var(--duration) var(--easing);
+          animation: ripple-out var(--duration) var(--easing);
+}
+@-webkit-keyframes ripple-out {
+  from {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  to {
+    -webkit-transform: scale(5);
+            transform: scale(5);
+  }
+}
+@keyframes ripple-out {
+  from {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  to {
+    -webkit-transform: scale(5);
+            transform: scale(5);
+  }
+}
+/* Reset the animation when clicking again! */
+.like-button:focus {
+  cursor: normal;
+}
+
+.like-button{
+  outline: none !important;
+  padding: 5px 5px;
+}
+.badge-pill:hover{
+  background: linear-gradient(45deg,#ff61d3 10%,#b318ff 36%,#b318ff 47%, 76%,#1e43ff);
+  -webkit-transition: backgroud-color 1s, width 0.25s, height 0.25s;
+  transition: background-color 1s, width 0.25s, height 0.25s;
+  color: white;
+}
+.content{
+  padding-top:20px !important;
+}
+ 
+.btn-process{
+  font-size: 2rem;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #256EFF;
+  box-shadow:0px 15px 27px 2px rgba(37,110,255,0.28);
+  border:none;
+  outline:none;
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 3rem;
+  border-radius:1rem;
+  color:#fff;
+  cursor:pointer;
+}
+
+.generate{
+  display: flex;
+  align-items:center;
+  justify-content: center;
+}
+.loader:after {
+  margin-left:5px;
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: ring 1.5s linear infinite;
+}
+@keyframes ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+  .form-control2 {
+    display: block;
+    width: 100%;
+    padding: 0.45rem 1rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color: black!important;
+    background-color: var(--bs-body-bg);
+    background-clip: padding-box;
+    border: 1px solid #E1E3EA;
+    appearance: none;
+    border-radius: 0.475rem;
+    box-shadow: false;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    min-height: 45px;
+}
+  .form-control2.form-control-solid {
+    background-color: #F9F9F9;
+    border: 1px solid #d7d7d7 !important;
+    color: var(--bs-gray-700);
+    transition: color 0.2s ease;
+}
+.form-control2:focus{
+  border-color: blue !important;
+}
+    </style>
+    <div class="wrapper">
+        <div class="sidebar">
+            <!-- Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red" -->
+            <div class="sidebar-wrapper" style="background-color: white;">
+                <div class="logo">
+                    <a href="/features" class="simple-text logo-mini text-dark">
+                        <img src="{% static 'images/head.png' %}" width="200px">
+                    </a>
+                    <a href="/" class="simple-text logo-normal text-dark" style="margin-top: 6px;">
+                        DeClutter
+                    </a>
+                </div>
+                <ul class="nav">
+                    <li class="{% if page == 'dashboard' %}active{% endif %}">
+                        <a href="/dashboard">
+                            <i class="tim-icons icon-chart-pie-36 text-dark"></i>
+                            <p class="text-dark">Dashboard</p>
+                        </a>
+                    </li>
+                    <li class="{% if page == 'features' %}active{% endif %}">
+                        <a href="/features">
+                            <i class="tim-icons icon-components text-dark"></i>
+                            <p class="text-dark">Features</p>
+                        </a>
+                    </li>
+                    <li class="{% if page == 'recipes' %}active{% endif %} d-none">
+                        <a href="#commingsoon">
+                            <i class="tim-icons icon-atom text-dark"></i>
+                            <p class="text-dark">Recipes</p>
+                        </a>
+                    </li>
+                    <li class="{% if page == 'finetune' %}active{% endif %} d-none">
+                        <a href="#commingsoon">
+                            <i class="tim-icons icon-settings text-dark"></i>
+                            <p class="text-dark">Fine Tune</p>
+                        </a>
+                    </li>
+                    <li class="{% if page == 'finetune' %}active{% endif %}">
+                      <a href="#commingsoon">
+                          <i class="tim-icons icon-spaceship text-dark"></i>
+                          <p class="text-dark">Automation</p>
+                      </a>
+                    </li>
+                    <li class="{% if page == 'bossmode' %}active{% endif %} d-none">
+                        <a href="/features/document-mode/text_simplification">
+                            <i class="tim-icons icon-single-copy-04 text-dark"></i>
+                            <p class="text-dark">Documents</p>
+                        </a>
+                    </li>
+                    <li class="{% if page == 'outputs' %}active{% endif %}">
+                        <a href="/outputs">
+                            <i class="tim-icons icon-notes text-dark"></i>
+                            <p class="text-dark">AI Outputs</p>
+                        </a>
+                    </li>
+                    <li class="{% if page == 'help' %}active{% endif %} d-none">
+                        <a href="#">
+                            <i class="tim-icons icon-support-17 text-dark"></i>
+                            <p class="text-dark">Help and Support</p>
+                        </a>
+                    </li>
+                    <li class="{% if page == 'profile' %}active{% endif %}">
+                        <a href="/profile">
+                            <i class="tim-icons icon-single-02 text-dark"></i>
+                            <p class="text-dark">Profile</p>
+                        </a>
+                    </li class="{% if page == 'settings' %}active{% endif %}">
+                    <li class="#">
+                        <a href="./upgrade.html">
+                            <i class="tim-icons icon-settings-gear-63 text-dark"></i>
+                            <p class="text-dark">Settings</p>
+                        </a>
+                    </li>
+                    <li class="#">
+                      <a href="/logout">
+                          <i class="tim-icons icon-button-power text-dark"></i>
+                          <p class="text-dark">Logout</p>
+                      </a>
+                  </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel" style="border:none">
+            <!-- Navbar -->
+            <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent navbar-sticky border-gradient border-gradient-purple" style="position:sticky; backgroud-color: #f5f6fa !important">
+                <div class="container-fluid">
+                    <div class="navbar-wrapper">
+                        <div class="navbar-minimize d-inline">
+                            <button class="minimize-sidebar btn btn-link btn-just-icon" rel="tooltip"
+                                data-original-title="Sidebar toggle" data-placement="right">
+                                <i class="tim-icons icon-align-center visible-on-sidebar-regular"></i>
+                                <i class="tim-icons icon-bullet-list-67 visible-on-sidebar-mini"></i>
+                            </button>
+                        </div>
+                        <div class="navbar-toggle d-inline">
+                            <button type="button" class="navbar-toggler">
+                                <span class="navbar-toggler-bar bar1"></span>
+                                <span class="navbar-toggler-bar bar2"></span>
+                                <span class="navbar-toggler-bar bar3"></span>
+                            </button>
+                        </div>
+                        <a class="navbar-brand" href="javascript:void(0)"
+                            style="margin-left: ;20px">{% if feature %}<img src="{{ feature.icon.url }}" width="40px" ><b>{{ feature.title }}{% endif %}</b></a>
+                    </div>
+                </div>
+            </nav>
+            <div class="modal modal-search fade" id="searchModal" tabindex="-1" role="dialog"
+                aria-labelledby="searchModal" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="SEARCH">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <i class="tim-icons icon-simple-remove"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Navbar -->
+
+      {% block content %}
+      {% endblock %}
+<!--footer class="footer">
+        <div class="container-fluid">
+          <ul class="nav">
+            <li class="nav-item">
+              <a href="javascript:void(0)" class="nav-link">
+                Creative Tim
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="javascript:void(0)" class="nav-link">
+                About Us
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="javascript:void(0)" class="nav-link">
+                Blog
+              </a>
+            </li>
+          </ul>
+          <div class="copyright">
+            ©
+            <script>
+              document.write(new Date().getFullYear())
+            </script>2018 made with <i class="tim-icons icon-heart-2"></i> by
+            <a href="javascript:void(0)" target="_blank">Creative Tim</a> for a better web.
+          </div>
+        </div>
+      </!--footer-->
+</div>
+</div>
+</body>
+
+<!--   Core JS Files   -->
+<script src="{% static 'assets/js/core/jquery.min.js' %}"></script>
+<script src="{% static 'assets/js/core/popper.min.js' %}"></script>
+<script src="{% static 'assets/js/core/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/perfect-scrollbar.jquery.min.js' %}"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!--  Google Maps Plugin    -->
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+<!-- Chart JS -->
+<script src="{% static 'assets/js/plugins/chartjs.min.js' %}"></script>
+<!--  Notifications Plugin    -->
+<script src="{% static 'assets/js/plugins/bootstrap-notify.js' %}"></script>
+<!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="{% static 'assets/js/black-dashboard.js' %}"></script>
+<!-- Black Dashboard DEMO methods, don't include it in your project! -->
+<script src="{% static 'assets/demo/demo.js' %}"></script>
+
+{% block script %}
+{% endblock %}
+
+<script>
+  
+  function copy_text(){
+    showNotification('Text Copied!');
+  }
+
+    var animateButton = function(e) {
+
+        e.preventDefault;
+        //reset animation
+        e.target.classList.remove('animate');
+        
+        e.target.classList.add('animate');
+        setTimeout(function(){
+          e.target.classList.remove('animate');
+        },700);
+      };
+      
+      var bubblyButtons = document.getElementsByClassName("bubbly-button");
+      
+      for (var i = 0; i < bubblyButtons.length; i++) {
+        bubblyButtons[i].addEventListener('click', animateButton, false);
+      }
+    
+    var showNotification = function(message, color=2, from="top", align="right") {
+        $.notify({
+          icon: "tim-icons icon-bell-55",
+          message: message,
+    
+        }, {
+          type: type[color],
+          timer: 3000,
+          placement: {
+            from: from,
+            align: align
+          }
+        });
+      }
+    function btn_loader(btn, action) {
+      if (action == true){
+        $(btn).find(".loader").addClass('d-block')
+        $(btn).prop('disabled',true); 
+        $(btn).val('disabled'); 
+      }
+      else{
+        $(btn).find(".loader").removeClass('d-block')
+        $(btn).prop('disabled',false);
+      }
+    };
+
+    function setInputLimitCount(limitNum,limitField,limitCount,selector,countdown){
+      if (limitField.length > limitNum) {
+          selector.val(limitField.substring(0, limitNum));
+          $(countdown).attr('style','color:#fd397a !important;');
+      }
+      else {
+          $(countdown).text(limitNum - limitField.length);
+          $(countdown).attr('style','color:#0abb87 !important;');
+      }
+      }
+      function title_counter(value, field_name, input_type) {
+        var counter = value.attr('name') + '_counter'
+        var limitNum = value.attr('limit'); // limit of the title
+        var limitField = value.val(); //  get current value
+        var limitCount = $('.' + counter); // countdown text value
+        // calling limit count check function
+        setInputLimitCount(limitNum, limitField, limitCount, value, '.' + counter);
+        // if the field is empty prefilled the field with below text
+        // text ipnut keyup function to count the length of the field.
+        $(input_type + "[name='" + field_name + "']").on("input propertychange", function (event) {
+            
+            title_counter($(this));
+        });
+      }
+      
+</script>

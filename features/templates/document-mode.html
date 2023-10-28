@@ -1,0 +1,509 @@
+<!--
+=========================================================
+* * Black Dashboard - v1.0.1
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/black-dashboard
+* Copyright 2019 Creative Tim (https://www.creative-tim.com)
+
+
+* Coded by Creative Tim
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="/static/assets/img/apple-icon.png">
+  <link rel="icon" type="/static/image/png" href="/static/assets/img/favicon.png">
+  <title>
+    Black Dashboard by Creative Tim
+  </title>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <!-- Nucleo Icons -->
+  <link href="/static/assets/css/nucleo-icons.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link href="/static/assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="/static/assets/demo/demo.css" rel="stylesheet" />
+
+  <link href="/static/node_modules/froala-editor/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+  
+</head>
+
+<body class="white-content">
+    <style>
+        p{
+    color:black;
+}
+html, body {margin: 0; height: 100%; overflow: hidden}
+
+.document{
+  height: 88vh;
+  border: none;
+  width: 100%;
+}
+.nav > li a{
+  margin-top: 0px !important;
+}
+.simple-text{
+      
+  background: linear-gradient(45deg,#b318ff 10%,#b318ff 18%, #1e43ff 47%, 76%,#ff61d3);;
+            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+}
+    </style>
+  <div class="wrapper">
+    <div class="sidebar" >
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red"
+    -->
+      <div class="sidebar-wrapper" style="background-color: white;">
+        <div class="logo">
+          <a href="/features" class="simple-text logo-mini text-dark">
+            <img src="/static/images/head.png" width="200px">
+          </a>
+          <a href="/" class="simple-text logo-normal text-dark" style="margin-top: 6px;">
+            DeClutter
+        </a>
+        </div>
+        <ul class="nav">
+          <li style="background-color: rgb(74, 74, 252);">
+            <a  href="./dashboard.html">
+              <img src="/static/images/icons/simplify-icon2.png" width="30px" style="background-color: white; padding:3px 1px 3px 3px;">
+              <span class="card-title"> <b>Text Simplification</b></span>
+            </a>
+          </li>
+          <li style="border-bottom: 1px solid rgb(230, 230, 230);">
+            <a href="./icons.html">
+              <img src="/static/images/icons/upload.png" width="30px">
+              <span class="text-dark" style="margin-top: 10px"><b>Content Improver</b></span>
+            </a>
+          </li>
+          <li style="border-bottom: 1px solid rgb(230, 230, 230);">
+            <a href="./map.html">
+              <img src="/static/images/icons/paraphrase2.png" width="30px">
+                    <span class="text-dark" style="margin-top: 10px"><b>Paraphraser</b></span>
+            </a>
+          </li>
+          <li style="border-bottom: 1px solid rgb(230, 230, 230);">
+            <a href="./notifications.html text-dark">
+              <img src="/static/images/icons/headline2.png" width="30px">
+                    <span class="text-dark" style="margin-top: 10px"><b>Blog Headline</b></span>
+            </a>
+          </li>
+          <li style="border-bottom: 1px solid rgb(230, 230, 230);">
+            <a href="./user.html">
+              <img src="/static/images/icons/headline2.png" width="30px">
+                    <span class="text-dark" style="margin-top: 10px"><b>Text Summerizer</b></span>
+            </a>
+          </li>
+          <li style="border-bottom: 1px solid rgb(230, 230, 230);">
+            <a href="./tables.html">
+              <img src="/static/images/icons/tonechanger2.png" width="30px">
+                    <span class="text-dark" style="margin-top: 10px"><b>Text Style changer</b></span>
+            </a>
+          </li>
+          <li class="active-pro">
+            <a href="./upgrade.html">
+              <i class="tim-icons icon-spaceship text-dark"></i>
+              <p class="text-dark">Upgrade to PRO</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <style>
+       
+        </style>
+    <div class="main-panel border-gradient border-gradient-purple">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-minimize d-inline">
+              <button class="minimize-sidebar btn btn-link btn-just-icon" rel="tooltip" data-original-title="Sidebar toggle" data-placement="right">
+              <i class="tim-icons icon-align-center visible-on-sidebar-regular"></i>
+              <i class="tim-icons icon-bullet-list-67 visible-on-sidebar-mini"></i>
+              </button>
+              </div>
+            <div class="navbar-toggle d-inline">
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+            </div>
+            <a class="navbar-brand" href="javascript:void(0)" style="margin-left:20px;"><b><img src="/static/images/icons/simplify-icon2.png" width="50px"> BOSS MODE</b></a>
+    
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navigation">
+            <ul class="navbar-nav ml-auto">
+              <li class="search-bar input-group">
+                <button class="btn btn-link" id="search-button" data-toggle="modal" data-target="#searchModal"><i class="tim-icons icon-zoom-split" ></i>
+                  <span class="d-lg-none d-md-block">Search</span>
+                </button>
+              </li>
+              <li class="dropdown nav-item">
+                <a href="javascript:void(0)" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                  <div class="notification d-none d-lg-block d-xl-block"></div>
+                  <i class="tim-icons icon-sound-wave"></i>
+                  <p class="d-lg-none">
+                    Notifications
+                  </p>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right dropdown-navbar">
+                  <li class="nav-link"><a href="#" class="nav-item dropdown-item">Mike John responded to your email</a></li>
+                  <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">You have 5 more tasks</a></li>
+                  <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Your friend Michael is in town</a></li>
+                  <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Another notification</a></li>
+                  <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Another one</a></li>
+                </ul>
+              </li>
+              <li class="dropdown nav-item">
+                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                  <div class="photo">
+                    <img src="/static/assets/img/anime3.png" alt="Profile Photo">
+                  </div>
+                  <b class="caret d-none d-lg-block d-xl-block"></b>
+                  <p class="d-lg-none">
+                    Log out
+                  </p>
+                </a>
+                <ul class="dropdown-menu dropdown-navbar">
+                  <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Profile</a></li>
+                  <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Settings</a></li>
+                  <li class="dropdown-divider"></li>
+                  <li class="nav-link"><a href="javascript:void(0)" class="nav-item dropdown-item">Log out</a></li>
+                </ul>
+              </li>
+              <li class="separator d-lg-none"></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="modal modal-search fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="searchModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="SEARCH">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <i class="tim-icons icon-simple-remove"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Navbar -->
+      <style>
+div.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 80px;
+
+}
+.border-gradient {
+  border-top: 10px solid;
+  border-image-slice: 1;
+  border-width: 5px;
+}
+.border-gradient-purple {
+  border-image-source: linear-gradient(45deg,#ff61d3 10%,#b318ff 36%,#b318ff 47%,#30b6ff 67%,#00f0ff 76%,#1e43ff);
+}
+.btn-languster{
+    background: linear-gradient(45deg,#ff61d3 10%,#b318ff 36%,#b318ff 47%, 76%,#1e43ff);
+    margin: 1px;
+}
+      </style>
+      <div class="content">
+        
+        <div class="row" style="position: fixed; margin-right: 30px;">
+          
+          <div class="col-lg-6 col-md-12 col-sm-12 col-12" style="width: 100%;">
+            <div class="card sticky" style="height:88vh; position: sticky;">
+              <div class="card-body" style=" max-height: 100%;
+              overflow-y: scroll; padding: 0px;">
+                <form style="padding: 20px">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label><b>Model</b></label>
+                      <br>
+                      <label>Select the model that will generate the completion.</label>
+                        <select class="form-control" style="border-color:rgb(182, 182, 182)">
+                            <option>Gpt-J</option>
+                            <option>T5 - 20b</option>
+                            <option>Bart</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Desccription</label>
+                        <label style="float: right;">0/80</label>
+                        <textarea type="text" class="form-control" rows="40" placeholder="Home Address" style="border: 1px rgb(182, 182, 182) solid; border-radius: 8px; max-height: 150px;"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Tone Voice</label>
+                        <select class="form-control" style="border-color:rgb(182, 182, 182)">
+                            <option>professional</option>
+                            <option>Casual</option>
+                            <option>Active</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <div class="card" >
+                    <div class="card-header" style="padding:0px; border: 1px solid #cfcfcf; border-bottom: none;">
+                      <h5 class="title" style="margin-bottom: 0px;">
+                        <span><button style="border:none;background:none; padding: 10px; border-right: 1px solid #cfcfcf; background-color: #f5f4f4e1;"><i class="tim-icons icon-sound-wave" ></i> New outputs</button></span> 
+                        <span><button style="border:none;background:none; padding: 10px; border-right: 1px solid #cfcfcf;"> <i class="tim-icons icon-watch-time" ></i> History</button></span>
+                      </h5>
+                    </div>
+                    <div class="card-body"  style="padding: 0px;  border: 1px solid #cfcfcf;">
+                        <div class="alert alert-success" style="width: 100%; border-radius: 0px; background-color: rgb(227, 251, 239); color: rgb(74, 74, 74); margin: 0px;">
+                            <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                              <i class="tim-icons icon-simple-remove"></i>
+                            </button>
+                            <div>
+                            <span class="output-time">just now</span>
+                            <button type="submit" class="btn small-option" style="margin-left: 30px;"><i style="font-size: 12px; color: #5e5e5e;" class="tim-icons icon-shape-star"></i></b></button>
+                            <button type="submit" class="btn small-option"><i style="font-size: 12px; color: #5e5e5e;" class="tim-icons icon-single-copy-04"></i></b></button>
+                    
+                            <span style="float: right;">
+                              <button type="submit" class="btn small-option"><i style="font-size: 12px; color: #5e5e5e;" class="tim-icons icon-minimal-up"></i></b></button>
+                              <button type="submit" class="btn small-option"><i style="font-size: 12px; color: #5e5e5e;" class="tim-icons icon-minimal-down"></i></b></button>
+                              <button type="submit" aria-hidden="true" data-dismiss="alert" aria-label="Close" class="btn btn-primary small-option"><i style="font-size: 12px; color: #5e5e5e;"  class="tim-icons icon-trash-simple"></i></b></button>
+                            </span>
+                            </div>
+                            <br>
+                            <span><b>“Forefront has pushed our business years into the future, allowing us to focus on marketing and product design instead of training and deployment solutions. It’s fast, reliable, and easy to use… it’s a catalyst that’s taking our business to the next level.”</b></span>
+                            <br>
+                            <span><b>“Forefront has pushed our business years into the future, allowing us to focus on marketing and product design instead of training and deployment solutions. It’s fast, reliable, and easy to use… it’s a catalyst that’s taking our business to the next level.”</b></span>
+                          </div>
+                    </div>
+                    <div class="card-body"  style="padding: 0px;  border: 1px solid #cfcfcf;">
+                      <div class="alert alert-success" style="width: 100%; border-radius: 0px; background-color: rgb(227, 251, 239); color: rgb(74, 74, 74); margin: 0px;">
+                          <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                            <i class="tim-icons icon-simple-remove"></i>
+                          </button>
+                          <div>
+                          <span class="output-time">just now</span>
+                          <button type="submit" class="btn small-option" style="margin-left: 30px;"><i style="font-size: 12px; color: #5e5e5e;" class="tim-icons icon-shape-star"></i></b></button>
+                          <button type="submit" class="btn small-option"><i style="font-size: 12px; color: #5e5e5e;" class="tim-icons icon-single-copy-04"></i></b></button>
+                  
+                          <span style="float: right;">
+                            <button type="submit" class="btn small-option"><i style="font-size: 12px; color: #5e5e5e;" class="tim-icons icon-minimal-up"></i></b></button>
+                            <button type="submit" class="btn small-option"><i style="font-size: 12px; color: #5e5e5e;" class="tim-icons icon-minimal-down"></i></b></button>
+                            <button type="submit" class="btn small-option"><i style="font-size: 12px; color: #5e5e5e;" class="tim-icons icon-trash-simple"></i></b></button>
+                          </span>
+                          </div>
+                          <br>
+                          <span><b>“Forefront has pushed our business years into the future, allowing us to focus on marketing and product design instead of training and deployment solutions. It’s fast, reliable, and easy to use… it’s a catalyst that’s taking our business to the next level.”</b></span>
+                          <br>
+                          <span><b>“Forefront has pushed our business years into the future, allowing us to focus on marketing and product design instead of training and deployment solutions. It’s fast, reliable, and easy to use… it’s a catalyst that’s taking our business to the next level.”</b></span>
+                        </div>
+                  </div>
+                  <div class="card-body"  style="padding: 0px;  border: 1px solid #cfcfcf;">
+                    <div class="alert alert-success" style="width: 100%; border-radius: 0px; background-color: rgb(227, 251, 239); color: rgb(74, 74, 74); margin: 0px;">
+                        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
+                          <i class="tim-icons icon-simple-remove"></i>
+                        </button>
+                        <div>
+                        <span class="output-time">just now</span>
+                        <button type="submit" class="btn small-option" style="margin-left: 30px;"><i style="font-size: 12px; color: #5e5e5e;" class="tim-icons icon-shape-star"></i></b></button>
+                        <button type="submit" class="btn small-option"><i style="font-size: 12px; color: #5e5e5e;" class="tim-icons icon-single-copy-04"></i></b></button>
+                
+                        <span style="float: right;">
+                          <button type="submit" class="btn small-option"><i style="font-size: 12px; color: #5e5e5e;" class="tim-icons icon-minimal-up"></i></b></button>
+                          <button type="submit" class="btn small-option"><i style="font-size: 12px; color: #5e5e5e;" class="tim-icons icon-minimal-down"></i></b></button>
+                          <button type="submit" class="btn small-option"><i style="font-size: 12px; color: #5e5e5e;" class="tim-icons icon-trash-simple"></i></b></button>
+                        </span>
+                        </div>
+                        <br>
+                        <span><b>“Forefront has pushed our business years into the future, allowing us to focus on marketing and product design instead of training and deployment solutions. It’s fast, reliable, and easy to use… it’s a catalyst that’s taking our business to the next level.”</b></span>
+                        <br>
+                        <span><b>“Forefront has pushed our business years into the future, allowing us to focus on marketing and product design instead of training and deployment solutions. It’s fast, reliable, and easy to use… it’s a catalyst that’s taking our business to the next level.”</b></span>
+                      </div>
+                </div>
+    
+                    
+                </div>
+
+              </div>
+              <div class="card-footer">
+                <button type="submit" class="btn btn-fill" style="background: #e7e7e7; padding:5px 20px; margin-top:10px;"><b style="font-size: 11px; color: #7e7e7e;">x clear inputs</b></button>
+                
+                <span style="border: 2px solid blue; float: right; border-radius: 10px;"><button type="submit" class="btn btn-languster">Generate -></button></span>
+                <select class="form-control" style="max-width: 100px; float:right; margin-top:5px; margin-right:5px ;">
+                    <option>1 outputs</option>
+                    <option>2 outputs</option>
+                    <option selected>3 outputs</option>
+                </select>
+            </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-12"  style=" padding: 0px;">
+            <div class="card">
+              <div id="froala" ></div>
+
+
+            </div>
+          </div>
+          <style>
+            .output-time{
+              font-size: 11px; 
+              color: #a4a4a4;
+              font-weight: 600;
+            }
+            .small-option{
+              background: #ffffff;
+              padding:3px 5px;
+            }
+            
+          </style>
+          
+        </div>
+      </div>
+      <!--footer class="footer">
+        <div class="container-fluid">
+          <ul class="nav">
+            <li class="nav-item">
+              <a href="javascript:void(0)" class="nav-link">
+                Creative Tim
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="javascript:void(0)" class="nav-link">
+                About Us
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="javascript:void(0)" class="nav-link">
+                Blog
+              </a>
+            </li>
+          </ul>
+          <div class="copyright">
+            ©
+            <script>
+              document.write(new Date().getFullYear())
+            </script>2018 made with <i class="tim-icons icon-heart-2"></i> by
+            <a href="javascript:void(0)" target="_blank">Creative Tim</a> for a better web.
+          </div>
+        </div>
+      </!--footer-->
+    </div>
+  </div>
+ <style>
+  .fr-wrapper{
+    height: 77vh;
+              overflow-y: scroll;
+  }
+  .fr-quick-insert{
+    display: none;
+  }
+ </style>
+ <script>
+
+  </script>
+  <!--   Core JS Files   -->
+  <script src="/static/assets/js/core/jquery.min.js"></script>
+  <script src="/static/assets/js/core/popper.min.js"></script>
+  <script src="/static/assets/js/core/bootstrap.min.js"></script>
+  <script src="/static/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!--  Google Maps Plugin    -->
+  <!-- Place this tag in your head or just before your close body tag. -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Chart JS -->
+  <script src="/static/assets/js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="/static/assets/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="/static/assets/js/black-dashboard.js"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
+  <script src="/static/assets/demo/demo.js"></script>
+  <script type="text/javascript" src="/static/node_modules/froala-editor/js/froala_editor.pkgd.min.js"></script>
+ 
+ <script>
+   function sleep(ms) {
+     return new Promise(resolve => setTimeout(resolve, ms));
+ }
+   $(document).ready(function(){
+     
+     $("#generate").click(function(){
+       var model = document.getElementById('model').value;
+         var input_sequence = document.getElementById('input').value;
+         var tone = document.getElementById('tone').value;
+         var no_outputs = document.getElementById('no_outputs').value;
+         var form
+       $.ajax({
+         url: '{% url "text_simplification" %}',
+         method: 'POST',
+         data: {
+             'csrfmiddlewaretoken': '{{ csrf_token }}',
+             'model': model,
+             'input_sequence': input_sequence,
+             'text_tone': tone,
+             'no_outputs': no_outputs
+           },
+         dataType: 'json',
+         success: function (data) {
+           for(var i=0;i<no_outputs;i++){
+           $('#outputs').prepend('\
+                   <div class="alert alert-success new-output">\
+                   <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">\
+                     <i class="tim-icons icon-simple-remove"></i>\
+                   </button>\
+                   <div>\
+                     <span class="output-time">just now</span>\
+                     <button type="submit" class="btn small-option" style="margin-left: 30px;"><i\
+                         style="font-size: 12px; color: #5e5e5e;" class="tim-icons icon-shape-star"></i></b></button>\
+                     <button type="submit" class="btn small-option"><i style="font-size: 12px; color: #5e5e5e;"\
+                         class="tim-icons icon-single-copy-04"></i></b></button>\
+                     <span style="float: right;">\
+                       <button type="submit" class="btn small-option"><i style="font-size: 12px; color: #5e5e5e;"\
+                           class="tim-icons icon-minimal-up"></i></b></button>\
+                       <button type="submit" class="btn small-option"><i style="font-size: 12px; color: #5e5e5e;"\
+                           class="tim-icons icon-minimal-down"></i></b></button>\
+                       <button type="submit" aria-hidden="true" data-dismiss="alert" aria-label="Close"\
+                         class="btn btn-primary small-option"><i style="font-size: 12px; color: #5e5e5e;"\
+                           class="tim-icons icon-trash-simple"></i></b></button>\
+                     </span>\
+                   </div>\
+                   <br/>\
+                   <span><b>“'+ data.outputs[i] +'”</b></span>'
+         )
+         $('.new-output').fadeIn();
+         $('.new-output').css({opacity: 0, visibility: "visible"}).animate({opacity: 1}, 1500);
+         $('.new-output').removeClass('new-output');
+         }
+         
+         }
+       });
+     });
+   });
+   
+    var editor = new FroalaEditor('#froala', {
+     toolbarButtons: ['bold', 'italic', 'fontSize', 'alignLeft', 'alignCenter', 'formatOLSimple', 'fullscreen'],
+     scrollable:true,
+    });  
+ </script>

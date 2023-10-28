@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="/static/assets/img/apple-icon.png">
+  <link rel="icon" type="/static/image/png" href="/static/assets/img/favicon.png">
+  <title>
+    Black Dashboard by Creative Tim
+  </title>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <!-- Nucleo Icons -->
+  <link href="/static/assets/css/nucleo-icons.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link href="/static/assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="/static/assets/demo/demo.css" rel="stylesheet" />
+  <link href="/static/assets/css/login.css" rel="stylesheet" />
+  <link href="/static/node_modules/froala-editor/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+  
+</head>
+<style>
+    .btn-active{
+        background: linear-gradient(45deg, #ff61d3 10%, #b318ff 36%, #b318ff 47%, 76%, #1e43ff) !important;
+      }
+      .btn-active i{
+        color: white !important;
+      }
+
+      .btn-languster:active:focus{
+        background: linear-gradient(45deg, #ff61d3 10%, #b318ff 36%, #b318ff 47%, 76%, #1e43ff) !important;
+      }
+
+      .btn-languster:focus{
+        background: linear-gradient(45deg, #ff61d3 10%, #b318ff 36%, #b318ff 47%, 76%, #1e43ff) !important;
+      }
+
+      .btn-white {
+        background: white;
+        color: black;
+        box-shadow: small;
+        border: 1px solid #bcbcbc
+      }
+
+      .btn-secondary{
+        background: linear-gradient(45deg, #ff61d3 10%, #b318ff 36%, #5d18ff 47%, 76%, #1e43ff);;
+      }
+
+      .btn-purple{
+        background: linear-gradient(45deg, #ff61d3 10%, #b318ff 36%, #5d18ff 47%, 76%, #1e43ff);;
+      }
+
+      .btn:hover {
+        background: linear-gradient(45deg, #ff61d3 10%, #b318ff 36%, #b318ff 47%, 76%, #1e43ff) !important;
+        color: white !important;
+      }
+
+      .btn:hover i {
+        color: white !important;
+      }
+      .btn-languster {
+        background: linear-gradient(45deg, #ff61d3 10%, #b318ff 36%, #b318ff 47%, 76%, #1e43ff);
+        margin: 1px;
+    }
+
+      .btn-languster:hover {
+        background: linear-gradient(45deg, #1e43ff 10%, #b318ff 36%, #b318ff 47%, 76%, #ff61d3) !important;
+        transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
+      }
+</style>
+<body class="white-content">
+
+{% block content %}
+{% endblock %}
+    
+</body>
+
+ <!--   Core JS Files   -->
+<script src="/static/assets/js/core/jquery.min.js"></script>
+<script src="/static/assets/js/core/popper.min.js"></script>
+<script src="/static/assets/js/core/bootstrap.min.js"></script>
+<script src="/static/assets/js/login.js"></script>
+<script src="/static/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<!--  Google Maps Plugin    -->
+<!-- Place this tag in your head or just before your close body tag. -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+<!-- Chart JS -->
+<script src="/static/assets/js/plugins/chartjs.min.js"></script>
+<!--  Notifications Plugin    -->
+<script src="/static/assets/js/plugins/bootstrap-notify.js"></script>
+<!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="/static/assets/js/black-dashboard.js"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
+<script src="/static/assets/demo/demo.js"></script>
+<script type="text/javascript" src="/static/node_modules/froala-editor/js/froala_editor.pkgd.min.js"></script>
+
+{% block javascript %}
+{% endblock %}

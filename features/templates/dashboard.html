@@ -1,0 +1,99 @@
+{% extends 'app_base.html' %}
+{% load static %}
+{% block content %}
+      <div class="content">
+        <h2 class="title">Dashboard</h2>
+            <div class="row justify-content-center">
+                <div style="text-align:left"><h1 class="title">Welcome to Jasper 👋</h1>
+                    <h3 class="text-default">
+                        Lets get started with Jasper's Top 🔥 hot features.
+                    </h3>
+                </div>
+              <div class="card col-lg-10 col-md-12 col-sm-12 col-12" style="width: 100%; border:1px solid #E1E3EA">
+                    <div style=" max-height: 100%; padding-top: 15px;">
+                    <div class="title" style="float: left"><h4>🔥 <b> Hot Features</b> </h4></div>
+                    <div class="title" style="float: right"><button class="badge badge-pill badge-info">See All</button></h4></div>
+                    </div>
+                <div class="row">
+                {% for feature in features %}
+                <div class="col-lg-4 d-flex">
+                    <a href="{% url 'feature' feature.slug %}" class="card">
+                        <div class="card-header">
+                            <img src="{{ feature.icon.url }}" width="50px">
+                            <h3 class="card-title" style="margin-top: 10px"><b>{{ feature.title }}</b></h3>
+                        </div>
+                        <div class="card-body">
+                            <p>{{ feature.meta_description }}</p>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+                <div class="col-lg-4 d-flex">
+                    <a href="" class="card">
+                        <div class="card-header">
+                            <img src="{% static 'images/icons/simplify-icon2.png' %}" width="50px">
+                            <h3 class="card-title" style="margin-top: 10px"><b>Text Simplification</b></h3>
+                        </div>
+                        <div class="card-body">
+                            <p>We consulted with the world’s best SEO and Direct Response Marketing experts
+                            to teach Jasper how to write blog articles, social media posts, website copy, and more...</p>
+                        </div>
+                        </a>
+                </div>
+
+                <div class="col-lg-4 d-flex">
+                    <a href="text_summerization" class="card">
+                        <div class="card-header">
+                            <img src="{% static 'images/icons/headline2.png' %}" width="50px">
+                            <h3 class="card-title" style="margin-top: 10px"><b>Text Summerizer</b></h3>
+                        </div>
+                        <div class="card-body">
+                            <p>We consulted with the world’s best SEO and Direct Response Marketing experts
+                            to teach Jasper how to write blog articles, social media posts, website copy, and more...</p>
+                        </div>
+                        </a>
+                </div>
+                <div class="col-lg-4 d-flex">
+                    <a href="#" class="card">
+                        <div class="card-header">
+                            <img src="{% static 'images/icons/tonechanger2.png' %}" width="50px">
+                            <h3 class="card-title" style="margin-top: 10px"><b>Text Style changer</b></h3>
+                        </div>
+                        <div class="card-body">
+                            <p>We consulted with the world’s best SEO and Direct Response Marketing experts
+                            to teach Jasper how to write blog articles, social media posts, website copy, and more...</p>
+                        </div>
+                        </a>
+                </div>
+                </div>
+            </div>
+            <div class="card col-lg-10 col-md-12 col-sm-12 col-12" style="width: 100%; border:1px solid #E1E3EA; min-height:200px">
+                <div style=" max-height: 100%; padding-top: 15px;">
+                <div class="title" style="float: left"><h4>❤️<b> Your Favorites</b> </h4></div>
+                <div class="title" style="float: right"><button class="badge badge-pill badge-info">See All</button></h4></div>
+                </div>
+            <div class="row h-100 justify-content-center align-items-center">
+                {% if fav_features %}
+                {% for fav in fav_features %}
+                    <div class="col-lg-4 d-flex">
+                        <a href="{{fav.feature.slug}}" class="card">
+                            <div class="card-header">
+                                <img src="{{ fav.feature.icon.url }}" width="50px">
+                                <h3 class="card-title" style="margin-top: 10px"><b>{{ fav.feature.title }}</b></h3>
+                            </div>
+                            <div class="card-body">
+                                <p>{{ fav.feature.meta_description }}</p>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+                {% else %}
+                    <p style="padding-bottom:25px;">Go find your top templates and hit the start button to add templates.</p>
+                {% endif %}
+            </div>
+        </div>
+
+{% endblock %}
+
+
+

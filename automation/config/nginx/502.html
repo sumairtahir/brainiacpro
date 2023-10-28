@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance | 502</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <style>
+        body {
+    margin: 0px;
+    background-color: white;
+    padding: 0px;
+    height: 100vh;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+}
+/* header style start */
+.header{
+    height: 75px;
+    padding: 15px 30px;
+    position: relative;
+}
+.logo-img{
+    width: 250px;
+}
+.logo-img img{
+    width: 100%;
+}
+/* Content style start */
+.content {
+    height: 100%;
+    text-align: center;
+    position: relative;
+    display: block;
+    justify-content: center;
+    align-items: center;
+}
+.content-img{
+    width: 30%;
+    margin: auto;
+}
+.content-img img{
+    width: 100%;
+}
+.heading {
+    font-size: 2.25rem;
+    font-weight: 600;
+    margin: 0px 0px 10px;
+}
+.para {
+    font-size: 0.875rem;
+    width: 80%;
+    margin: auto;
+    line-height: 1.5;
+    font-weight: 400;
+}
+.para span{
+    color: #1A66B0;
+    font-weight: 600;
+}
+/* Footer style start */
+.footer{
+    height: 50px;
+    background-color: #1A66B0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    margin: auto;
+    text-align: center;
+    padding: 5px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.footer p {
+    margin: 0px;
+    font-size: 12px;
+    font-weight: 300;
+}
+.footer p span{
+    color:#FD326F;
+}
+/* Media style start */
+@media screen and (max-width: 992px) {
+    .content-img {
+        width: 35%;
+    }
+    .heading {
+        font-size: 2rem;
+    }
+    .para {
+        width: 80%;
+        font-size: 0.875rem;
+    }
+  }
+  @media screen and (max-width: 550px) {
+    .content-img {
+        width: 50% !important;
+    }
+    .heading {
+        font-size: 1.5rem;
+    }
+    .para {
+        width: 95%;
+        font-size: 0.875rem;
+        word-break: break-word;
+    }
+    .footer p {
+        font-size: 10px;
+    }
+  }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-img">
+            <img src="https://linkedunion-backend.s3.us-west-1.amazonaws.com/linkedunion/logo/logo.svg">
+        </div>
+    </div>
+    <div class="content">
+        <div class="content-img">
+            <img src="https://linkedunion-backend.s3.us-west-1.amazonaws.com/linkedunion/logo/502.svg">
+        </div>
+        
+        <h1 class="heading">Bad Gateway</h1>
+            <p class="para">The server encountered a temporary error and couldn’t complete your request. <br>
+                Please try again in few minutes or reach out to us at <span>+1 (208)-501-4399</span></p>
+    </div>
+    <div class="footer">
+        <p>© 2022 LinkedUnion, LLC. All Rights Reserved. Made With <span><i class="fa fa-heart"></i></span> In San Jose, California</p>
+    </div>
+</body>
+</html>

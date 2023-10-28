@@ -1,0 +1,90 @@
+version: '3'
+
+services:
+
+  declutter:
+    build:
+      context: .
+      dockerfile: config/declutter/Dockerfile
+    hostname: declutter
+    volumes:
+      - ./:/declutter
+      - static_volume:/declutter/static
+      - media_volume:/declutter/media
+    env_file:
+      - declutter/.env
+    depends_on:
+      - redis_service
+    expose:
+      - "8000:8000"
+
+  nginx:
+    image: nginx
+    hostname: nginx
+    ports:
+      - "80:80"
+      - "8000:8000"
+      - "5555:5555"
+    volumes:
+      - ./config/nginx/local_templates:/etc/nginx/templates:ro
+      - ./config/nginx/.htpasswd:/etc/nginx/.htpasswd
+      - static_volume:/declutter/static
+      - media_volume:/declutter/media
+      - /var/log/nginx:/var/log/nginx
+    env_file:
+      - declutter/.env
+
+    depends_on:
+      - declutter
+
+  celery:
+    build:
+      context: .
+      dockerfile: config/declutter/Dockerfile
+    command: celery -A declutter worker -l info --concurrency 1
+    env_file:
+      - declutter/.env
+    environment:
+      - C_FORCE_ROOT=true
+      - SECRET_KEY=${CELERY_SECRET_KEY}
+    depends_on:
+      - celery-beat
+
+  celery-beat:
+    build:
+      context: .
+      dockerfile: config/declutter/Dockerfile
+    command: celery -A declutter beat -l info
+    env_file:
+      - declutter/.env
+    environment:
+      - SECRET_KEY=${CELERY_SECRET_KEY}
+
+  flower:
+    restart: always
+    hostname: flower
+    image: mher/flower:0.9.4
+    command: docker run -p 5555:5555 mher/flower
+    env_file:
+      - declutter/.env
+    environment:
+      - FLOWER_PORT=5555
+      - C_FORCE_ROOT=true
+
+    volumes:
+      - .:/src/app
+    depends_on:
+      - celery-beat
+      - celery
+
+  redis_service:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - /usr/local/Cellar/redis/7.2.0/.bottle/etc/redis.conf:/usr/local/etc/redis/redis.conf
+    command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
+
+volumes:
+  static_volume:
+  media_volume:
