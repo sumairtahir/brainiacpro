@@ -2,7 +2,7 @@ import re
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 import pandas as pd
-from .models import Operation, OperationOutputKeys
+from .models import Automation, Operation, OperationOutputKeys
 from celery import shared_task
 from .apis.wordpress import WordPress
 
@@ -10,8 +10,12 @@ from .apis.wordpress import WordPress
 wordpress = WordPress('sumair', 'yEaNclS3vRT19GbJgVbulbjf', 'dreaminterpreter.pro')
 
 
-def update_status(operation_id, status):
+def update_operation_status(operation_id, status):
     # Notify clients about the updated status
+    operation = Operation.objects.get(id=operation_id)
+    operation.status = status
+    operation.save()
+
     channel_layer = get_channel_layer()
     async_to_sync(channel_layer.group_send)(
         'operations_group',
@@ -24,7 +28,11 @@ def update_status(operation_id, status):
 
 
 def update_iterations(operation_id, iteration_count, total_iterations):
-    # Notify clients about the updated status
+    operation = Operation.objects.get(id=operation_id)
+    operation.iteration = iteration_count
+    operation.total_iterations = total_iterations
+    operation.save()
+
     channel_layer = get_channel_layer()
     async_to_sync(channel_layer.group_send)(
         'operations_group',
@@ -55,7 +63,12 @@ def get_last_operation(operation):
 def cleanup_outputs(automation_id):
     operations = Operation.objects.filter(automation_id=automation_id)
     for operation in operations:
+        operation.status = 1
+        operation.iteration = 0
+        operation.total_iterations = 0
+        update_operation_status(operation.id, 1)
         operation.operation_outputs.all().update(output="")
+        operation.save()
 
 
 def set_output(operation, ouput_key, output):
@@ -126,7 +139,7 @@ def call_next_operation(operation_output, operation):
                 else:
                     call_next_operation_bool = False
                     set_output(operation, operation.title, output)
-                print(iteration, len(operation_output))
+
                 call_operation(next_operation, iteration, call_next_operation_bool, len(operation_output))
                 iteration += 1
             
@@ -159,12 +172,11 @@ def call_multi_next_operation(operation_output, operation, last_operation):
             set_output(operation, operation.title, operation_output)
             call_operation(next_operation, iteration, call_next_operation_bool, 1, last_operation)
 
-import time
 
 def call_operation(operation, iteration, call_next_operation_bool, total_iterations, last_operation):
     
-    update_status(operation.id, 2)
-    time.sleep(5)
+    update_operation_status(operation.id, 2)
+
     previous_output_dict = {}
     if operation.prev_operation:
         previous_outputs = get_prev_operation_outputs_keys(operation)
@@ -216,12 +228,12 @@ def call_operation(operation, iteration, call_next_operation_bool, total_iterati
         title = operation.text_field_1.format(**previous_output_dict)
         content = operation.text_area_1.format(**previous_output_dict)
         operation_output = ""  # wordpress.add_draft_post(title, content)
-
-    if operation == last_operation:
-        cleanup_outputs(1)
     
     if iteration == total_iterations:
-        update_status(operation.id, 3)
+        update_operation_status(operation.id, 3)
+    
+    if operation == last_operation:
+        cleanup_outputs(1)
         
     if call_next_operation_bool:
         call_multi_next_operation(operation_output, operation, last_operation)
@@ -232,15 +244,29 @@ def call_operation(operation, iteration, call_next_operation_bool, total_iterati
             set_output(operation, operation.title, operation_output)
 
 
-
 @shared_task
 def start_automation(automation_id):
     # Perform the background operation
     # ...
+    automation = Automation.objects.get(id=automation_id)
+    automation.status = 1
+    automation.save()
+
     operation = Operation.objects.filter(automation_id=automation_id, prev_operation=None).first()
     last_operation = get_last_operation(operation)
     call_operation(operation, 1, True, 1, last_operation)
 
+    automation.status = 0
+    automation.save()
+
+    channel_layer = get_channel_layer()
+    async_to_sync(channel_layer.group_send)(
+        'operations_group',
+        {
+            'type': 'update_automation_status',
+            'status': 0,
+        }
+    )
     # # Update the operation status to "completed"
     # operation = Operation.objects.get(id=1)
     # operation.status = 1

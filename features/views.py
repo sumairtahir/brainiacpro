@@ -130,7 +130,7 @@ def feature_view(request, feature_slug):
         output_ids = []
         user_input_sequences = {}
         model = request.POST.get('model', 'GPT3')
-        no_of_outputs = int(request.POST.get('no_outputs')) 
+        no_of_outputs = int(request.POST.get('no_outputs'))
 
         for input_sequence in feature.inputs.all():
             user_input = request.POST.get(input_sequence.input_key, None)

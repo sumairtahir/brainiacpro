@@ -30,7 +30,7 @@ def automation_view(request):
         operations_list = get_next_operations(operation, operations_list)
     
     if request.method == 'POST':
-        start_automation(1)
+        start_automation.delay(1)
 
     page = 'automation'
 
@@ -76,7 +76,8 @@ def edit_operation_settings(request, operation_id):
     operation = Operation.objects.filter(id=operation_id).first()
     if operation:
         text_field_1 = request.POST.get("text_field_1", operation.text_field_1)
-        text_field_2 = request.POST.get("text_field_2", operation.text_field_1)
+        text_field_2 = request.POST.get("text_field_2", operation.text_field_2)
+        image_url = request.POST.get("image_url", operation.image_url)
         text_area_1 = request.POST.get("text_area_1", operation.text_area_1)
         expected_output = request.POST["expected_output"]
         
@@ -86,23 +87,8 @@ def edit_operation_settings(request, operation_id):
         operation.text_area_1 = text_area_1
         operation.text_field_1 = text_field_1
         operation.text_field_2 = text_field_2
+        operation.image_url = image_url
         operation.expected_output = expected_output
         operation.save()
 
     return JsonResponse({})
-
-
-from channels.layers import get_channel_layer
-from asgiref.sync import async_to_sync
-
-
-def test_channels(request):
-    channel_layer = get_channel_layer()
-    async_to_sync(channel_layer.group_send)(
-        'operations_group',
-        {
-            'type': 'update_status',
-            'operation_name': "Test Operation",
-            'status': 'completed'
-        }
-    )

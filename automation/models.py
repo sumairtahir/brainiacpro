@@ -6,6 +6,7 @@ from authentication.models import Account
 class Automation(models.Model):
     user = models.ForeignKey(Account, on_delete=models.CASCADE)
     title = models.CharField(max_length=256)
+    status = models.IntegerField(default=0)
 
 
 class Operation(models.Model):
@@ -34,10 +35,12 @@ class Operation(models.Model):
     text_field_1 = models.CharField(max_length=512, blank=True, null=True)
     text_field_2 = models.CharField(max_length=512, blank=True, null=True)
     text_area_1 = models.TextField(blank=True, null=True)
+    image_url = models.CharField(max_length=512)
     expected_output = models.IntegerField(blank=True, null=True, choices=output_type)
     # call_same_operation = models.IntegerField(default=0)
     status = models.IntegerField(default=0)
     iteration = models.IntegerField(default=0)
+    total_iterations = models.IntegerField(default=0)
     priority = models.IntegerField(default=0)
     prev_operation = models.ForeignKey("self", on_delete=models.SET_NULL, null=True, blank=True, related_name="next_operations")
     icon = models.ImageField(blank=True, upload_to='automation/icons')

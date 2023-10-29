@@ -26,3 +26,10 @@ class OperationStatusConsumer(AsyncWebsocketConsumer):
             'total_iterations': event['total_iterations'],
         }
         await self.send(text_data=json.dumps(message))
+    
+    async def update_automation_status(self, event):
+        message = {
+            'type': 'update_automation_status',
+            'status': event['status']
+        }
+        await self.send(text_data=json.dumps(message))
