@@ -28,6 +28,7 @@ def update_operation_status(operation_id, status):
 
 
 def update_iterations(operation_id, iteration_count, total_iterations):
+    update_operation_status(operation_id, 2)
     operation = Operation.objects.get(id=operation_id)
     operation.iteration = iteration_count
     operation.total_iterations = total_iterations
@@ -157,12 +158,16 @@ def call_multi_next_operation(operation_output, operation, last_operation):
         if isinstance(operation_output, list):
 
             for output in operation_output:
-                if len(operation_output) > 1:
-                    update_iterations(next_operation.id, iteration, len(operation_output))
+                    
                 if isinstance(output, dict):
+                    if len(operation_output) > 1:
+                        update_iterations(operation.id, iteration, len(operation_output))
+                    
                     for key, value in output.items():
                         set_output(operation, key, value)
                 else:
+                    if len(operation_output) > 1:
+                        update_iterations(next_operation.id, iteration, len(operation_output))
                     call_next_operation_bool = False
                     set_output(operation, operation.title, output)
                 call_operation(next_operation, iteration, call_next_operation_bool, len(operation_output), last_operation)
@@ -174,6 +179,9 @@ def call_multi_next_operation(operation_output, operation, last_operation):
 
 
 def call_operation(operation, iteration, call_next_operation_bool, total_iterations, last_operation):
+    
+    if iteration != total_iterations and not call_next_operation_bool:
+        update_operation_status(operation.prev_operation.id, 3)
     
     update_operation_status(operation.id, 2)
 
@@ -229,7 +237,10 @@ def call_operation(operation, iteration, call_next_operation_bool, total_iterati
         content = operation.text_area_1.format(**previous_output_dict)
         operation_output = ""  # wordpress.add_draft_post(title, content)
     
-    if iteration == total_iterations:
+    if (isinstance(operation_output, str) and call_next_operation_bool):
+        update_operation_status(operation.id, 3)
+    
+    if iteration == total_iterations and not call_next_operation_bool:
         update_operation_status(operation.id, 3)
     
     if operation == last_operation:
