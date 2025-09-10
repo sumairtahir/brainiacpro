@@ -5,9 +5,10 @@ import pandas as pd
 from .models import Automation, Operation, OperationOutputKeys
 from celery import shared_task
 from .apis.wordpress import WordPress
+from django.conf import settings
 
 
-wordpress = WordPress('sumair', 'yEaNclS3vRT19GbJgVbulbjf', 'dreaminterpreter.pro')
+wordpress = WordPress(settings.wordpress_username, settings.wordpress_pass,  settings.wordpress_website)
 
 
 def update_operation_status(operation_id, status):
@@ -258,7 +259,6 @@ def call_operation(operation, iteration, call_next_operation_bool, total_iterati
 @shared_task
 def start_automation(automation_id):
     # Perform the background operation
-    # ...
     automation = Automation.objects.get(id=automation_id)
     automation.status = 1
     automation.save()
@@ -278,10 +278,3 @@ def start_automation(automation_id):
             'status': 0,
         }
     )
-    # # Update the operation status to "completed"
-    # operation = Operation.objects.get(id=1)
-    # operation.status = 1
-    # operation.save()
-
-    # update_status(1, 2)
-    # update_iterations(1, 2, 1000)
