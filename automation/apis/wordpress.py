@@ -4,13 +4,6 @@ import openai
 from django.conf import settings
 import requests
 
-openai.api_key = settings.OPENAIKEY
-
-headers = {
-    "Authorization": "Bearer " + settings.FOREFRONT1,
-    "Content-Type": "application/json"
-}
-
 
 class WordPress:
     '''
