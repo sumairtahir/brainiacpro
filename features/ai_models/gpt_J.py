@@ -7,10 +7,6 @@ from constants.client_message import ERROR, TESTGENERATION
 
 openai.api_key = settings.OPENAIKEY
 
-headers = {
-  "Authorization": "Bearer " + settings.FOREFRONT1,
-  "Content-Type": "application/json"
-}
 
 class GPTJ:
     '''gpt j'''
